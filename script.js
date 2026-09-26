@@ -46,122 +46,52 @@ workTabs.forEach((tab, index) => {
   });
 });
 
-const eventCarousel = document.querySelector('.event-carousel');
-if (eventCarousel) {
-  const eventCards = Array.from(eventCarousel.querySelectorAll('.event-card'));
-  const pagination = document.querySelector('.gallery-pagination');
-  const dots = document.querySelector('.gallery-dots');
-  const toggleButton = document.querySelector('.gallery-toggle');
+const eventCarousel = document.querySelector('#event-carousel');
+if (eventCarousel && typeof window.Splide === 'function' && window.splide?.Extensions?.AutoScroll) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let activeIndex = 0;
-  let paused = prefersReducedMotion.matches;
-  let manuallyStarted = false;
-  let hovered = false;
-  let focused = false;
-  let timer = 0;
-  let resetTimer = 0;
-
-  const firstCard = eventCards[0];
-  if (firstCard && eventCards.length > 1) {
-    const loopCard = firstCard.cloneNode(true);
-    loopCard.classList.add('event-card-clone');
-    loopCard.setAttribute('aria-hidden', 'true');
-    eventCarousel.append(loopCard);
-  }
-
-  const dotButtons = eventCards.map((card, index) => {
-    const button = document.createElement('button');
-    const label = card.querySelector('figcaption')?.textContent.trim() || `Foto ${index + 1}`;
-    button.type = 'button';
-    button.className = 'gallery-dot';
-    button.setAttribute('aria-label', `Mostrar foto: ${label}`);
-    button.addEventListener('click', () => goTo(index));
-    dots?.append(button);
-    return button;
+  const toggleButton = document.querySelector('.gallery-toggle');
+  const splide = new window.Splide(eventCarousel, {
+    type: 'loop',
+    perPage: 4,
+    perMove: 1,
+    gap: '18px',
+    drag: 'free',
+    snap: false,
+    arrows: false,
+    pagination: false,
+    keyboard: 'focused',
+    autoScroll: {
+      speed: 0.45,
+      autoStart: !prefersReducedMotion.matches,
+      pauseOnHover: true,
+      pauseOnFocus: true,
+    },
+    breakpoints: {
+      1100: { perPage: 3, gap: '16px' },
+      800: { perPage: 2, gap: '14px' },
+      520: { perPage: 2, gap: '12px' },
+    },
   });
 
-  const updateDots = () => {
-    dotButtons.forEach((button, index) => {
-      const selected = index === activeIndex;
-      button.classList.toggle('is-active', selected);
-      if (selected) button.setAttribute('aria-current', 'true');
-      else button.removeAttribute('aria-current');
-    });
-  };
-
-  const goTo = (index, behavior = 'smooth') => {
-    activeIndex = index % eventCards.length;
-    updateDots();
-    if (index >= eventCards.length) {
-      const clone = eventCarousel.querySelector('.event-card-clone');
-      if (clone) {
-        eventCarousel.scrollTo({ left: clone.offsetLeft, behavior });
-        window.clearTimeout(resetTimer);
-        resetTimer = window.setTimeout(() => {
-          eventCarousel.scrollLeft = 0;
-          activeIndex = 0;
-          updateDots();
-        }, behavior === 'smooth' ? 650 : 0);
-        return;
-      }
-    }
-    eventCarousel.scrollTo({ left: eventCards[activeIndex].offsetLeft, behavior });
-  };
-
-  const updateFromScroll = () => {
-    const width = eventCarousel.clientWidth || 1;
-    const visualIndex = Math.round(eventCarousel.scrollLeft / width);
-    activeIndex = visualIndex >= eventCards.length ? 0 : Math.min(eventCards.length - 1, visualIndex);
-    updateDots();
-  };
-
-  const updateToggle = () => {
+  splide.mount(window.splide.Extensions);
+  toggleButton?.closest('.gallery-pagination')?.removeAttribute('hidden');
+  const autoScroll = splide.Components.AutoScroll;
+  const syncToggle = () => {
     if (!toggleButton) return;
-    toggleButton.setAttribute('aria-pressed', String(paused));
-    toggleButton.setAttribute('aria-label', paused ? 'Retomar carrossel' : 'Pausar carrossel');
-  };
-
-  const scheduleAutoplay = () => {
-    window.clearInterval(timer);
-    if (paused || hovered || focused || document.hidden) return;
-    if (prefersReducedMotion.matches && !manuallyStarted) return;
-    timer = window.setInterval(() => goTo(activeIndex + 1), 5200);
+    const isPaused = autoScroll.isPaused();
+    toggleButton.setAttribute('aria-pressed', String(isPaused));
+    toggleButton.setAttribute('aria-label', isPaused ? 'Retomar carrossel' : 'Pausar carrossel');
+    const label = toggleButton.querySelector('.gallery-toggle-label');
+    if (label) label.textContent = isPaused ? 'Retomar' : 'Pausar';
   };
 
   toggleButton?.addEventListener('click', () => {
-    paused = !paused;
-    if (!paused) manuallyStarted = true;
-    updateToggle();
-    scheduleAutoplay();
+    if (autoScroll.isPaused()) autoScroll.play();
+    else autoScroll.pause();
+    syncToggle();
   });
-  eventCarousel.addEventListener('scroll', updateFromScroll, { passive: true });
-  eventCarousel.addEventListener('keydown', (event) => {
-    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
-    event.preventDefault();
-    goTo(event.key === 'ArrowRight'
-      ? activeIndex + 1
-      : (activeIndex + eventCards.length - 1) % eventCards.length);
-  });
-  eventCarousel.addEventListener('pointerenter', () => { hovered = true; scheduleAutoplay(); });
-  eventCarousel.addEventListener('pointerleave', () => { hovered = false; scheduleAutoplay(); });
-  eventCarousel.addEventListener('focusin', () => { focused = true; scheduleAutoplay(); });
-  eventCarousel.addEventListener('focusout', (event) => {
-    if (!eventCarousel.contains(event.relatedTarget)) { focused = false; scheduleAutoplay(); }
-  });
-  pagination?.addEventListener('pointerenter', () => { hovered = true; scheduleAutoplay(); });
-  pagination?.addEventListener('pointerleave', () => { hovered = false; scheduleAutoplay(); });
-  pagination?.addEventListener('focusin', () => { focused = true; scheduleAutoplay(); });
-  pagination?.addEventListener('focusout', (event) => {
-    if (!pagination.contains(event.relatedTarget)) { focused = false; scheduleAutoplay(); }
-  });
-  document.addEventListener('visibilitychange', scheduleAutoplay);
-  prefersReducedMotion.addEventListener?.('change', scheduleAutoplay);
-  window.addEventListener('resize', updateFromScroll);
-  updateDots();
-  updateToggle();
-  scheduleAutoplay();
+  syncToggle();
 }
-
 const motionPreviews = Array.from(document.querySelectorAll('.motion-preview'));
 if (motionPreviews.length && 'IntersectionObserver' in window) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -208,3 +138,4 @@ if (timelineShell && 'IntersectionObserver' in window && !window.matchMedia('(pr
 } else if (timelineShell) {
   timelineShell.querySelectorAll('.timeline-item').forEach((item) => item.classList.add('is-visible'));
 }
+

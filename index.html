@@ -13,8 +13,12 @@
   <link rel="icon" href="./assets/true-north-icon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide-core.min.css">
   <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js" defer></script>
   <script src="./script.js" defer></script>
 </head>
 <body>
@@ -159,23 +163,27 @@
           <p class="eyebrow">03 / Encontros &amp; trocas</p>
           <div><h2 id="gallery-title">Tecnologia</h2><p class="section-intro">Apresentações, conversas e conexões que ganham vida entre pessoas.</p></div>
         </div>
-        <div class="event-carousel" role="region" aria-label="Fotos de encontros e apresentações" tabindex="0">
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-presenting.webp" width="1800" height="1013" alt="Beatriz apresenta uma demonstração em uma tela azul durante um evento de tecnologia." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-conversation.webp" width="1800" height="1200" alt="Beatriz conversa com participantes em um encontro de tecnologia." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-demo-visitor.webp" width="1800" height="1200" alt="Beatriz apresenta uma solução digital a uma visitante em um estande." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-guided-tour.webp" width="1280" height="720" alt="Beatriz apresenta uma solução para um grupo de visitantes." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-fiec-team.webp" width="1800" height="1350" alt="Beatriz e colegas da Moldsoft em um evento no estande da FIEC." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-moldia-team.webp" width="1800" height="1200" alt="Beatriz e colegas apresentam o Mold IA X em um evento." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-unifor-team.webp" width="1800" height="1180" alt="Beatriz e colegas junto a uma demonstração do Mold IA X na Unifor." loading="lazy"></div></figure>
-          <figure class="event-card"><div class="event-image"><img src="./assets/event-team.webp" width="1800" height="1200" alt="Beatriz com colegas durante um evento de tecnologia." loading="lazy"></div></figure>
-        </div>
-        <div class="gallery-pagination" aria-label="Navegação das fotos">
-          <div class="gallery-dots" role="group" aria-label="Escolher foto"></div>
-          <button class="gallery-toggle" type="button" aria-label="Pausar carrossel" aria-pressed="false">
+        <section class="splide event-carousel" id="event-carousel" aria-labelledby="gallery-title" tabindex="0">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-presenting.webp" width="1800" height="1013" alt="Beatriz apresenta uma demonstração em uma tela azul durante um evento de tecnologia." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-conversation.webp" width="1800" height="1200" alt="Beatriz conversa com participantes em um encontro de tecnologia." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-demo-visitor.webp" width="1800" height="1200" alt="Beatriz apresenta uma solução digital a uma visitante em um estande." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-guided-tour.webp" width="1280" height="720" alt="Beatriz apresenta uma solução para um grupo de visitantes." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-fiec-team.webp" width="1800" height="1350" alt="Beatriz e colegas da Moldsoft em um evento no estande da FIEC." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-moldia-team.webp" width="1800" height="1200" alt="Beatriz e colegas apresentam o Mold IA X em um evento." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-unifor-team.webp" width="1800" height="1180" alt="Beatriz e colegas junto a uma demonstração do Mold IA X na Unifor." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-team.webp" width="1800" height="1200" alt="Beatriz com colegas durante um evento de tecnologia." loading="lazy"></div></li>
+            </ul>
+          </div>
+          <div class="gallery-pagination" aria-label="Controles do carrossel" hidden>
+            <button class="gallery-toggle" type="button" aria-label="Pausar carrossel" aria-pressed="false">
             <svg class="pause-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3v10M11 3v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
             <svg class="play-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m5 3 7 5-7 5z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="gallery-toggle-label">Pausar</span>
           </button>
-        </div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -206,3 +214,4 @@
 </div>
 </body>
 </html>
+
