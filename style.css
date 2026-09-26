@@ -392,6 +392,7 @@ html{overflow-x:clip}
 
 /* Hero statement: let the longer promise wrap cleanly without changing its grid. */
 .hero #hero-title{font-size:clamp(48px,4.45vw,64px)}
+.hero #hero-title em{display:inline;font-size:1.15em;line-height:.9;letter-spacing:-.035em;color:var(--ink);padding:0}
 .hero #hero-title strong{color:var(--red);font-weight:700}
 @media(max-width:800px){.hero #hero-title{font-size:clamp(45px,7.2vw,58px)}}
 @media(max-width:600px){.hero #hero-title{font-size:clamp(43px,12vw,56px)}}
