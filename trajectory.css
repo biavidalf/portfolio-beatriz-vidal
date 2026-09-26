@@ -97,3 +97,44 @@
 .trajectory-page .wordmark .brand-name em,.trajectory-page .footer-brand .brand-name em{color:var(--surface)}
 .trajectory-page .brand-icon{filter:grayscale(1) brightness(0) invert(1)}
 .volunteer-story .volunteer-note{margin:18px 0 0;padding-top:18px;border-top:1px solid var(--rule)}
+
+/* Tablet layouts use one clear reading column; phone rules refine touch and text flow. */
+@media(max-width:800px){
+  .trajectory-page .timeline-layout{grid-template-columns:minmax(0,1fr);gap:36px}
+  .trajectory-page .timeline-intro{position:static;top:auto;max-width:700px;margin-bottom:0}
+  .trajectory-page .timeline-track-shell,.trajectory-page .timeline-list{min-width:0}
+  .trajectory-page .selected-work>.wrap{width:calc(100% - 48px)}
+  .trajectory-page .education-entry{grid-template-columns:minmax(120px,.3fr) minmax(0,1fr);gap:18px 24px}
+  .trajectory-page .education-entry>div{min-width:0}
+}
+@media(max-width:680px){
+  .trajectory-page .section-heading>div{grid-template-columns:minmax(0,1fr);gap:16px}
+  .trajectory-page .education-entry{grid-template-columns:minmax(0,1fr) auto;gap:8px 14px}
+  .trajectory-page .education-date{grid-column:1/-1}
+  .trajectory-page .education-entry>div{grid-column:1;min-width:0}
+  .trajectory-page .education-kind{grid-column:2;grid-row:2;align-self:start;max-width:120px}
+  .trajectory-page .volunteer-feature{grid-template-columns:minmax(0,1fr);grid-template-areas:"story" "photo";gap:24px;padding:26px 22px}
+  .trajectory-page .contribution-pair{grid-template-columns:minmax(0,1fr);gap:22px;margin-top:30px}
+  .trajectory-page .contribution-item,.trajectory-page .contribution-item+.contribution-item{padding:0 0 22px;border:0}
+  .trajectory-page .contribution-item+.contribution-item{padding-top:22px;border-top:1px solid var(--rule)}
+  .trajectory-page .capability-row{grid-template-columns:minmax(0,1fr);gap:20px}
+  .trajectory-page .capability-proof{grid-column:1;margin-left:35px}
+  .trajectory-page .trajectory-cta-inner{grid-template-columns:minmax(0,1fr)}
+  .trajectory-page .trajectory-cta .button{grid-column:1}
+}
+@media(max-width:600px){
+  .trajectory-page .header-inner{flex-direction:column;align-items:stretch;gap:8px;min-height:0;padding-block:10px}
+  .trajectory-page .header nav{width:100%;flex-wrap:wrap;justify-content:space-between;gap:3px 9px;font-size:12px}
+  .trajectory-page .header nav a{display:inline-flex;min-height:40px;align-items:center;white-space:nowrap}
+  .trajectory-page .nav-contact:before{font-size:11px}
+  .trajectory-page .trajectory-meta{flex-wrap:wrap;align-items:center;gap:7px 14px}
+  .trajectory-page .timeline-layout{gap:31px}
+  .trajectory-page .timeline-intro{margin-bottom:0}
+  .trajectory-page .trajectory-timeline{padding-block:61px}
+  .trajectory-page .timeline-item{padding-bottom:39px}
+  .trajectory-page .education-entry{grid-template-columns:minmax(0,1fr) auto}
+  .trajectory-page .education-kind{max-width:110px;line-height:1.5}
+  .trajectory-page .certification-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 15px}
+  .trajectory-page .certification-list small{display:block;text-align:left;margin-top:0}
+  .trajectory-page .footer{flex-wrap:wrap}
+}

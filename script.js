@@ -69,7 +69,7 @@ if (eventCarousel && typeof window.Splide === 'function' && window.splide?.Exten
     breakpoints: {
       1100: { perPage: 3, gap: '16px' },
       800: { perPage: 2, gap: '14px' },
-      520: { perPage: 2, gap: '12px' },
+      520: { perPage: 1, gap: '12px' },
     },
   });
 
