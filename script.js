@@ -52,7 +52,7 @@ if (eventCarousel && typeof window.Splide === 'function' && window.splide?.Exten
   const toggleButton = document.querySelector('.gallery-toggle');
   const splide = new window.Splide(eventCarousel, {
     type: 'loop',
-    perPage: 4,
+    perPage: 3,
     perMove: 1,
     gap: '18px',
     drag: 'free',
@@ -138,4 +138,3 @@ if (timelineShell && 'IntersectionObserver' in window && !window.matchMedia('(pr
 } else if (timelineShell) {
   timelineShell.querySelectorAll('.timeline-item').forEach((item) => item.classList.add('is-visible'));
 }
-
