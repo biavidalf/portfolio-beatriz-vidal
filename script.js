@@ -46,6 +46,46 @@ workTabs.forEach((tab, index) => {
   });
 });
 
+if (!document.body.classList.contains('trajectory-page') &&
+    'IntersectionObserver' in window &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealItems = [
+    ['.hero-copy > .eyebrow', 0],
+    ['.hero #hero-title', 90],
+    ['.hero-intro', 180],
+    ['.hero-actions', 270],
+    ['.hero-visual', 180],
+    ['.hero-bottom', 0],
+    ['.projects .section-heading', 0],
+    ['.work-tabs', 100],
+    ['.work-panel .featured-project', 120],
+    ['.about-image', 0],
+    ['.about-copy', 120],
+    ['.gallery-heading', 0],
+    ['.contact-invitation', 0],
+    ['.contact-links', 120],
+  ];
+  const targets = revealItems.flatMap(([selector, delay]) =>
+    Array.from(document.querySelectorAll(selector), (element) => {
+      element.classList.add('motion-reveal');
+      element.style.setProperty('--motion-delay', `${delay}ms`);
+      return element;
+    })
+  );
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+  document.documentElement.classList.add('motion-ready');
+  targets.forEach((target) => {
+    target.addEventListener('focusin', () => target.classList.add('is-visible'), { once: true });
+    revealObserver.observe(target);
+  });
+}
+
 const eventCarousel = document.querySelector('#event-carousel');
 if (eventCarousel && typeof window.Splide === 'function' && window.splide?.Extensions?.AutoScroll) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
