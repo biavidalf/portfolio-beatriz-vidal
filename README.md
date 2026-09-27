@@ -4,7 +4,7 @@ Portfólio pessoal construído com Astro e publicado como site estático na Verc
 
 ## Desenvolvimento
 
-Use Node.js 22.12 ou superior.
+Use Node.js 22.19 ou superior.
 
 ```sh
 npm ci
