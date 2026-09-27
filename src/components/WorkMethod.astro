@@ -1,0 +1,53 @@
+---
+import '../styles/work-method.css';
+---
+
+<script>
+  const section = document.querySelector<HTMLElement>('.work-method');
+  if (section && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const targets = section.querySelectorAll<HTMLElement>('[data-method-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+    section.classList.add('method-motion-ready');
+    targets.forEach((target) => {
+      observer.observe(target);
+      target.addEventListener('focusin', () => target.classList.add('is-visible'), { once: true });
+    });
+  }
+</script>
+
+<section class="work-method wrap section-space" id="como-trabalho" aria-labelledby="method-title">
+  <div class="method-card">
+  <div class="method-heading" data-method-reveal>
+    <p class="eyebrow">02 / Como eu trabalho</p>
+    <div class="method-heading-grid">
+      <h2 id="method-title">IA para acelerar.<br>Processo para <em>evoluir.</em></h2>
+      <p class="method-intro">Combatendo um dos maiores problemas que temos hoje, aplico processos estruturados para o time usar ferramentas e IA do jeito certo, aumentando produtividade e mantendo qualidade. </p>
+    </div>
+  </div>
+
+  <div class="method-workbench" data-method-reveal>
+    <div class="method-principle">
+      <p class="eyebrow"><span class="method-signal" aria-hidden="true"></span> Meu papel no time</p>
+      <h3>Eu olho para o todo.<br><em>O time avança com clareza.</em></h3>
+      <p class="method-principle-teaser">Coordeno uma equipe de oito pessoas e acompanho três produtos em produção. Estou nas conversas de estratégia, nas decisões de escopo e nas dúvidas que aparecem enquanto o produto ganha forma.</p>
+      <p class="method-principle-content">No desenvolvimento, a IA não trabalha sem regras. As especificações, arquitetura e boas práticas orientam o trabalho, dando prioridade ao contexto do produto. Acompanho revisão técnica e testes para manter os produtos estáveis e preparados para crescer. A conversa com clientes e pesquisa constante de mercado e inovação é crucial na hora de decidir os próximos passos.</p>
+      <a class="text-link" style="hover-" href="https://www.linkedin.com/in/beatriz-vidal-bf4/" target="_blank" rel="noopener noreferrer">Conectar no LinkedIn <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+    </div>
+
+    <div class="method-process" aria-label="Meu processo de desenvolvimento">
+      <p class="method-process-label eyebrow">Da conversa ao produto em uso</p>
+      <ol class="method-steps">
+        <li class="method-step"><span class="method-step-number" aria-hidden="true">01</span><div class="method-step-heading"><strong>Encontrar oportunidades e priorizar</strong><p>Junto sinais dos clientes, mercado e tecnologia aos objetivos do produto para decidir o que desenvolver agora.</p></div></li>
+        <li class="method-step"><span class="method-step-number" aria-hidden="true">02</span><div class="method-step-heading"><strong>Estruturar para construir e crescer</strong><p>Defino um caminho com escopo, especificações e decisões técnicas claras. Assim, time e IA avançam com contexto e o produto pode crescer com consistência.</p></div></li>
+        <li class="method-step"><span class="method-step-number" aria-hidden="true">03</span><div class="method-step-heading"><strong>Validar antes e depois de publicar</strong><p>Acompanho revisão técnica, testes em homologação e checagem em produção. O retorno dos clientes orienta as próximas melhorias.</p></div></li>
+      </ol>
+    </div>
+  </div>
+  </div>
+</section>

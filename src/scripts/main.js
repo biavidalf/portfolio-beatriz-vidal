@@ -48,16 +48,135 @@ workTabs.forEach((tab, index) => {
   });
 });
 
+const accordionHoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const workAccordions = Array.from(document.querySelectorAll('.work-accordion'));
+
+function accordionMotionId(details) {
+  const nextId = Number(details.dataset.motionId || 0) + 1;
+  details.dataset.motionId = String(nextId);
+  return nextId;
+}
+
+function expandAccordion(details, contentSelector = ':scope > .accordion-content') {
+  const content = details.querySelector(contentSelector);
+  if (!content || (details.open && !details.classList.contains('is-closing'))) return;
+
+  if (reducedMotionQuery.matches) {
+    details.open = true;
+    details.classList.remove('is-closing', 'is-opening');
+    content.style.height = 'auto';
+    return;
+  }
+
+  const motionId = accordionMotionId(details);
+  const currentHeight = content.getBoundingClientRect().height;
+  details.open = true;
+  details.classList.remove('is-closing');
+  details.classList.add('is-opening');
+  content.style.height = `${currentHeight}px`;
+
+  window.requestAnimationFrame(() => {
+    if (Number(details.dataset.motionId) !== motionId) return;
+    content.style.height = `${content.scrollHeight}px`;
+  });
+
+  const finishOpening = (event) => {
+    if (event.propertyName !== 'height') return;
+    content.removeEventListener('transitionend', finishOpening);
+    if (Number(details.dataset.motionId) !== motionId) return;
+    content.style.height = 'auto';
+    details.classList.remove('is-opening');
+  };
+  content.addEventListener('transitionend', finishOpening);
+}
+
+function collapseAccordion(details, contentSelector = ':scope > .accordion-content') {
+  const content = details.querySelector(contentSelector);
+  if (!content || !details.open) return;
+
+  if (reducedMotionQuery.matches) {
+    content.style.height = '0px';
+    details.open = false;
+    details.classList.remove('is-closing', 'is-opening');
+    return;
+  }
+
+  const motionId = accordionMotionId(details);
+  content.style.height = `${content.getBoundingClientRect().height}px`;
+  details.classList.remove('is-opening');
+  details.classList.add('is-closing');
+  content.getBoundingClientRect();
+
+  window.requestAnimationFrame(() => {
+    if (Number(details.dataset.motionId) !== motionId) return;
+    content.style.height = '0px';
+  });
+
+  const finishClosing = (event) => {
+    if (event.propertyName !== 'height') return;
+    content.removeEventListener('transitionend', finishClosing);
+    if (Number(details.dataset.motionId) !== motionId) return;
+    details.open = false;
+    details.classList.remove('is-closing');
+  };
+  content.addEventListener('transitionend', finishClosing);
+}
+
+workAccordions.forEach((details) => {
+  const summary = details.querySelector(':scope > summary');
+  const content = details.querySelector(':scope > .accordion-content');
+  const group = details.closest('.work-accordions');
+  if (!summary || !content) return;
+
+  content.style.height = details.open ? 'auto' : '0px';
+  summary.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (accordionHoverQuery.matches && details.matches(':hover')) return;
+    if (details.open && !details.classList.contains('is-closing')) collapseAccordion(details);
+    else expandAccordion(details);
+  });
+
+  details.addEventListener('pointerenter', () => {
+    if (!accordionHoverQuery.matches) return;
+    group?.classList.add('is-hovering');
+    details.classList.add('is-hovered');
+    expandAccordion(details);
+  });
+
+  details.addEventListener('pointerleave', () => {
+    if (!accordionHoverQuery.matches) return;
+    group?.classList.remove('is-hovering');
+    details.classList.remove('is-hovered');
+    collapseAccordion(details);
+  });
+});
+
+const tiltQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+document.querySelectorAll('.contact-item').forEach((card) => {
+  card.addEventListener('pointermove', (event) => {
+    if (!tiltQuery.matches) return;
+    const bounds = card.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    card.style.setProperty('--tilt-x', `${((0.5 - y) * 5).toFixed(2)}deg`);
+    card.style.setProperty('--tilt-y', `${((x - 0.5) * 6).toFixed(2)}deg`);
+    card.style.setProperty('--shine-x', `${(x * 100).toFixed(1)}%`);
+    card.style.setProperty('--shine-y', `${(y * 100).toFixed(1)}%`);
+  });
+
+  card.addEventListener('pointerleave', () => {
+    card.style.setProperty('--tilt-x', '0deg');
+    card.style.setProperty('--tilt-y', '0deg');
+    card.style.setProperty('--shine-x', '50%');
+    card.style.setProperty('--shine-y', '50%');
+  });
+});
+
 if (!document.body.classList.contains('trajectory-page') &&
     'IntersectionObserver' in window &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const revealItems = [
-    ['.hero-copy > .eyebrow', 0],
-    ['.hero #hero-title', 90],
-    ['.hero-intro', 180],
-    ['.hero-actions', 270],
-    ['.hero-visual', 180],
-    ['.hero-bottom', 0],
     ['.projects .section-heading', 0],
     ['.work-tabs', 100],
     ['.work-panel .featured-project', 120],
