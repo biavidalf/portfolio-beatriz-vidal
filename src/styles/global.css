@@ -453,10 +453,10 @@ html{overflow-x:clip}
 
 /* Fixed vector icons keep the same shape on iOS, Android and desktop. */
 .icon{display:inline-block;width:1em;height:1em;flex:none;vertical-align:-.12em;background-color:currentColor;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain}
-.icon-arrow-up-right{-webkit-mask-image:url('./assets/icon-arrow-up-right.svg');mask-image:url('./assets/icon-arrow-up-right.svg')}
-.icon-arrow-down{-webkit-mask-image:url('./assets/icon-arrow-down.svg');mask-image:url('./assets/icon-arrow-down.svg')}
-.icon-corner-down-right{-webkit-mask-image:url('./assets/icon-corner-down-right.svg');mask-image:url('./assets/icon-corner-down-right.svg')}
-.icon-spark{-webkit-mask-image:url('./assets/icon-spark.svg');mask-image:url('./assets/icon-spark.svg')}
+.icon-arrow-up-right{-webkit-mask-image:url('/assets/icon-arrow-up-right.svg');mask-image:url('/assets/icon-arrow-up-right.svg')}
+.icon-arrow-down{-webkit-mask-image:url('/assets/icon-arrow-down.svg');mask-image:url('/assets/icon-arrow-down.svg')}
+.icon-corner-down-right{-webkit-mask-image:url('/assets/icon-corner-down-right.svg');mask-image:url('/assets/icon-corner-down-right.svg')}
+.icon-spark{-webkit-mask-image:url('/assets/icon-spark.svg');mask-image:url('/assets/icon-spark.svg')}
 .about-affiliation-mark.icon{width:19px;height:19px;flex:none}
 .contact-arrow.icon{align-self:center}
 

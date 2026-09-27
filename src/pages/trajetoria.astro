@@ -1,53 +1,18 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#151513">
-  <meta name="author" content="Beatriz Vidal">
-  <meta name="description" content="Da formação técnica em Informática à coordenação de inovação, conheça a trajetória de Beatriz Vidal em desenvolvimento, produtos digitais e trabalho voluntário.">
-  <link rel="canonical" href="https://portfolio-beatriz-vidal.vercel.app/trajetoria.html">
-  <meta property="og:title" content="Trajetória de Beatriz Vidal | Desenvolvimento e inovação">
-  <meta property="og:description" content="Da formação técnica à coordenação de inovação: conheça minha experiência em desenvolvimento, produtos digitais e trabalho voluntário.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://portfolio-beatriz-vidal.vercel.app/trajetoria.html">
-  <meta property="og:site_name" content="Beatriz Vidal">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:image" content="https://portfolio-beatriz-vidal.vercel.app/assets/share-trajetoria.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Trajetória de Beatriz Vidal. Uma trajetória feita de ideias em movimento.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Trajetória de Beatriz Vidal | Desenvolvimento e inovação">
-  <meta name="twitter:description" content="Da formação técnica à coordenação de inovação. Conheça minha experiência em desenvolvimento, produtos digitais e trabalho voluntário.">
-  <meta name="twitter:image" content="https://portfolio-beatriz-vidal.vercel.app/assets/share-trajetoria.png">
-  <meta name="twitter:image:alt" content="Trajetória de Beatriz Vidal. Uma trajetória feita de ideias em movimento.">
-  <title>Trajetória de Beatriz Vidal | Desenvolvimento e inovação</title>
-  <link rel="icon" href="./assets/true-north-icon.ico" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./trajectory.css">
-  <script src="./script.js" defer></script>
-</head>
-<body class="trajectory-page">
-<div class="site">
-  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
-  <header class="header">
-    <div class="header-inner wrap">
-      <a class="wordmark" href="./index.html#inicio" aria-label="Beatriz Vidal, início"><img class="brand-icon" src="./assets/true-north-icon.ico" width="26" height="29" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></a>
-      <nav aria-label="Navegação principal">
-        <a href="./index.html#projetos">Trabalho</a>
-        <a href="./index.html#sobre">Sobre</a>
-        <a href="./trajetoria.html" aria-current="page">Trajetória</a>
-        <a class="nav-contact" href="./index.html#contato">Vamos conversar <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
-      </nav>
-    </div>
-  </header>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
 
-  <main id="conteudo">
+<BaseLayout
+  page="trajectory"
+  title="Trajetória de Beatriz Vidal | Desenvolvimento e inovação"
+  description="Da formação técnica em Informática à coordenação de inovação, conheça a trajetória de Beatriz Vidal em desenvolvimento, produtos digitais e trabalho voluntário."
+  socialTitle="Trajetória de Beatriz Vidal | Desenvolvimento e inovação"
+  socialDescription="Da formação técnica à coordenação de inovação: conheça minha experiência em desenvolvimento, produtos digitais e trabalho voluntário."
+  socialImage="/assets/share-trajetoria.png"
+  socialImageAlt="Trajetória de Beatriz Vidal. Uma trajetória feita de ideias em movimento."
+  themeColor="#151513"
+>
+<main id="conteudo">
     <section class="trajectory-hero wrap" aria-labelledby="trajectory-title">
       <p class="eyebrow"><span class="red-square" aria-hidden="true"></span> Desenvolvimento · coordenação · inovação</p>
       <div class="trajectory-hero-grid">
@@ -66,7 +31,7 @@
           <p class="eyebrow">01 / Experiência</p>
           <h2 id="experience-title">Do primeiro código à <em>coordenação.</em></h2>
           <p>Minha experiência cruza desenvolvimento, atendimento a pessoas e construção de produtos. Em cada etapa, aprendi a transformar necessidades reais em caminhos possíveis.</p>
-          <a href="./index.html#projetos" class="timeline-side-link">Ver produtos e cases <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+          <a href="/#projetos" class="timeline-side-link">Ver produtos e cases <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
         </aside>
         <div class="timeline-track-shell">
           <div class="trajectory-rail" aria-hidden="true"><span class="trajectory-rail-fill"></span></div>
@@ -153,7 +118,7 @@
             <p>A associação civil laica mobiliza jovens de Fortaleza em ações de caridade e apoio a comunidades vulneráveis. Participei de atividades em abrigos de animais, escolas e outros espaços comunitários, cuidando dos ambientes e dos pets. Também criei sites para a Jovens pela Diferença e para a Família BDL.</p>
             <p class="volunteer-note">Uma forma de aproximar duas coisas que me movem: desenvolver aplicações e ajudar pessoas.</p>
           </div>
-          <figure class="volunteer-photo"><img src="./assets/beatriz-voluntariado.jpg" width="1368" height="1824" alt="Beatriz com dois cachorros em um espaço de acolhimento animal" loading="lazy"><figcaption>Cuidado, presença e empatia.</figcaption></figure>
+          <figure class="volunteer-photo"><img src="/assets/beatriz-voluntariado.jpg" width="1368" height="1824" alt="Beatriz com dois cachorros em um espaço de acolhimento animal" loading="lazy"><figcaption>Cuidado, presença e empatia.</figcaption></figure>
         </article>
         <div class="contribution-pair">
           <article class="contribution-item">
@@ -205,11 +170,4 @@
       </div>
     </section>
   </main>
-
-  <footer class="footer wrap">
-    <a class="footer-brand" href="./index.html#inicio"><img class="brand-icon" src="./assets/true-north-icon.ico" width="20" height="22" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></a>
-    <p>Feito com intenção, de Fortaleza.<span class="footer-year">2026</span></p>
-  </footer>
-</div>
-</body>
-</html>
+</BaseLayout>

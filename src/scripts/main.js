@@ -1,4 +1,6 @@
-'use strict';
+import Splide from '@splidejs/splide';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+
 const copyButton = document.querySelector('.copy-email');
 const copyStatus = document.getElementById('copy-status');
 if (copyButton && copyStatus && navigator.clipboard && window.isSecureContext) {
@@ -87,10 +89,10 @@ if (!document.body.classList.contains('trajectory-page') &&
 }
 
 const eventCarousel = document.querySelector('#event-carousel');
-if (eventCarousel && typeof window.Splide === 'function' && window.splide?.Extensions?.AutoScroll) {
+if (eventCarousel) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const toggleButton = document.querySelector('.gallery-toggle');
-  const splide = new window.Splide(eventCarousel, {
+  const splide = new Splide(eventCarousel, {
     type: 'loop',
     perPage: 3,
     perMove: 1,
@@ -113,7 +115,7 @@ if (eventCarousel && typeof window.Splide === 'function' && window.splide?.Exten
     },
   });
 
-  splide.mount(window.splide.Extensions);
+  splide.mount({ AutoScroll });
   toggleButton?.closest('.gallery-pagination')?.removeAttribute('hidden');
   const autoScroll = splide.Components.AutoScroll;
   const syncToggle = () => {

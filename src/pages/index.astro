@@ -1,83 +1,45 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#F0ECE3">
-  <meta name="author" content="Beatriz Vidal">
-  <meta name="description" content="Sou Beatriz Vidal. Desenvolvo aplicações, coordeno iniciativas de inovação e transformo desafios reais em produtos digitais. Conheça meu trabalho e vamos conversar.">
-  <link rel="canonical" href="https://portfolio-beatriz-vidal.vercel.app/">
-  <meta property="og:title" content="Beatriz Vidal | Produtos digitais e inovação">
-  <meta property="og:description" content="Te ajudo a transformar desafios reais em produtos digitais. Conheça meu trabalho em desenvolvimento e inovação e vamos conversar.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://portfolio-beatriz-vidal.vercel.app/">
-  <meta property="og:site_name" content="Beatriz Vidal">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:image" content="https://portfolio-beatriz-vidal.vercel.app/assets/share-home.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Beatriz Vidal. Te ajudo a transformar desafios reais em produtos digitais.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Beatriz Vidal | Produtos digitais e inovação">
-  <meta name="twitter:description" content="Te ajudo a transformar desafios reais em produtos digitais. Conheça meu trabalho e vamos conversar.">
-  <meta name="twitter:image" content="https://portfolio-beatriz-vidal.vercel.app/assets/share-home.png">
-  <meta name="twitter:image:alt" content="Beatriz Vidal. Te ajudo a transformar desafios reais em produtos digitais.">
-  <title>Beatriz Vidal | Produtos digitais e inovação</title>
-  <link rel="icon" href="./assets/true-north-icon.ico" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide-core.min.css">
-  <link rel="stylesheet" href="./style.css">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebSite",
-          "@id": "https://portfolio-beatriz-vidal.vercel.app/#website",
-          "url": "https://portfolio-beatriz-vidal.vercel.app/",
-          "name": "Beatriz Vidal",
-          "inLanguage": "pt-BR"
-        },
-        {
-          "@type": "Person",
-          "@id": "https://portfolio-beatriz-vidal.vercel.app/#beatriz",
-          "name": "Beatriz Vidal",
-          "url": "https://portfolio-beatriz-vidal.vercel.app/",
-          "jobTitle": "Desenvolvedora e coordenadora de inovação",
-          "sameAs": [
-            "https://www.instagram.com/biavidalf/",
-            "https://www.linkedin.com/in/beatriz-vidal-bf4/",
-            "https://www.tiktok.com/@_vidalb",
-            "https://github.com/biavidalf"
-          ]
-        }
-      ]
-    }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js" defer></script>
-  <script src="./script.js" defer></script>
-</head>
-<body>
-<div class="site">
-  <a class="skip-link" id="skip-content" href="#conteudo">Ir para o conteúdo</a>
-  <header class="header">
-    <div class="header-inner wrap">
-      <a class="wordmark" id="home-link" href="#inicio" aria-label="Beatriz Vidal, início"><img class="brand-icon" src="./assets/true-north-icon.ico" width="26" height="29" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></a>
-      <nav aria-label="Navegação principal">
-        <a id="nav-projects" href="#projetos">Trabalho</a>
-        <a id="nav-about" href="#sobre">Sobre</a>
-        <a id="nav-trajectory" href="./trajetoria.html">Trajetória</a>
-        <a class="nav-contact" id="nav-contact" href="#contato">Vamos conversar <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
-      </nav>
-    </div>
-  </header>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-  <main id="conteudo">
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://portfolio-beatriz-vidal.vercel.app/#website',
+      url: 'https://portfolio-beatriz-vidal.vercel.app/',
+      name: 'Beatriz Vidal',
+      inLanguage: 'pt-BR',
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://portfolio-beatriz-vidal.vercel.app/#beatriz',
+      name: 'Beatriz Vidal',
+      url: 'https://portfolio-beatriz-vidal.vercel.app/',
+      jobTitle: 'Desenvolvedora e coordenadora de inovação',
+      sameAs: [
+        'https://www.instagram.com/biavidalf/',
+        'https://www.linkedin.com/in/beatriz-vidal-bf4/',
+        'https://www.tiktok.com/@_vidalb',
+        'https://github.com/biavidalf',
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  page="home"
+  title="Beatriz Vidal | Produtos digitais e inovação"
+  description="Sou Beatriz Vidal. Desenvolvo aplicações, coordeno iniciativas de inovação e transformo desafios reais em produtos digitais. Conheça meu trabalho e vamos conversar."
+  socialTitle="Beatriz Vidal | Produtos digitais e inovação"
+  socialDescription="Te ajudo a transformar desafios reais em produtos digitais. Conheça meu trabalho em desenvolvimento e inovação e vamos conversar."
+  socialImage="/assets/share-home.png"
+  socialImageAlt="Beatriz Vidal. Te ajudo a transformar desafios reais em produtos digitais."
+  themeColor="#F0ECE3"
+  structuredData={structuredData}
+>
+<main id="conteudo">
     <section class="hero wrap" id="inicio" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span class="red-square" aria-hidden="true"></span> Entre ideias · pessoas · tecnologia</p>
@@ -90,7 +52,7 @@
       </div>
       <div class="hero-visual">
         <div class="photo-frame">
-          <img class="hero-photo" src="./assets/beatriz-conversa.webp" width="1400" height="933" alt="Beatriz sorrindo durante uma conversa em um evento de tecnologia." fetchpriority="high">
+          <img class="hero-photo" src="/assets/beatriz-conversa.webp" width="1400" height="933" alt="Beatriz sorrindo durante uma conversa em um evento de tecnologia." fetchpriority="high">
           <div class="photo-caption"><span class="icon icon-arrow-up-right caption-mark" aria-hidden="true"></span><p>É sobre tecnologia.<br><strong>E sobre quem está do outro lado.</strong></p></div>
         </div>
         <div class="photo-meta"><span>Boas trocas, dentro e fora da tela.</span><span aria-hidden="true">[ BV ]</span></div>
@@ -112,7 +74,7 @@
           <div class="mascot-stage">
             <span class="stage-caption">Lil Mascot / Companheiro de desktop</span>
             <span class="orbit orbit-one" aria-hidden="true"></span><span class="orbit orbit-two" aria-hidden="true"></span>
-            <img src="./assets/lil-mascot.webp" alt="Personagem do Lil Mascot: pequeno arqueiro com capuz claro e roupa verde." width="600" height="600" loading="lazy">
+            <img src="/assets/lil-mascot.webp" alt="Personagem do Lil Mascot: pequeno arqueiro com capuz claro e roupa verde." width="600" height="600" loading="lazy">
             <span class="stage-note">um pequeno passo de cada vez</span>
           </div>
           <div class="project-copy">
@@ -145,8 +107,8 @@
       <div class="work-panel" id="panel-cases" role="tabpanel" aria-labelledby="tab-cases" tabindex="0" hidden>
         <article class="featured-project">
           <div class="featured-media">
-            <video class="featured-video motion-preview" autoplay muted loop playsinline preload="metadata" poster="./assets/preview-moldiax-site.webp" aria-label="Prévia em vídeo do site Mold IA X">
-              <source src="./assets/preview-moldiax-demo.mp4" type="video/mp4">
+            <video class="featured-video motion-preview" autoplay muted loop playsinline preload="metadata" poster="/assets/preview-moldiax-site.webp" aria-label="Prévia em vídeo do site Mold IA X">
+              <source src="/assets/preview-moldiax-demo.mp4" type="video/mp4">
             </video>
           </div>
           <div class="project-copy">
@@ -161,8 +123,8 @@
           <details class="work-accordion">
             <summary class="accordion-trigger"><span class="project-number" aria-hidden="true">02</span><span class="accordion-title"><strong>Try-On</strong><span class="accordion-title-meta"><small>Provador virtual e plataforma de varejo</small><span class="company-badge">Moldiax</span></span></span><span class="accordion-summary">Ajuda clientes a experimentar e escolher peças online.</span><span class="accordion-toggle" aria-hidden="true"></span></summary>
             <div class="accordion-content"><div class="tryon-case-layout">
-              <video class="motion-preview tryon-video" autoplay muted loop playsinline preload="metadata" poster="./assets/preview-tryon.webp" aria-label="Prévia em vídeo da plataforma Try-On">
-                <source src="./assets/preview-tryon-demo.mp4" type="video/mp4">
+              <video class="motion-preview tryon-video" autoplay muted loop playsinline preload="metadata" poster="/assets/preview-tryon.webp" aria-label="Prévia em vídeo da plataforma Try-On">
+                <source src="/assets/preview-tryon-demo.mp4" type="video/mp4">
               </video>
               <div class="detail-grid">
               <div><span class="eyebrow">O desafio</span><p>A dúvida sobre como uma peça vai vestir pode interromper a decisão de compra; lojas também precisam conectar apresentação, prova e venda.</p></div>
@@ -185,7 +147,7 @@
 
     <section class="about wrap section-space" id="sobre" aria-labelledby="about-title">
       <div class="about-image">
-        <img src="./assets/beatriz-apresentando.webp" width="1800" height="1013" alt="Beatriz apresentando uma aplicação para um grupo de pessoas em um evento." loading="lazy">
+        <img src="/assets/beatriz-apresentando.webp" width="1800" height="1013" alt="Beatriz apresentando uma aplicação para um grupo de pessoas em um evento." loading="lazy">
         <p class="image-caption">Compartilhar o que construímos também faz parte.</p>
       </div>
       <div class="about-copy">
@@ -199,7 +161,7 @@
         <p class="about-personal">Fora das telas: amigos, família, arco e flecha e um olhar curioso para a cidade.</p>
         <div class="about-next-step">
           <div class="education"><span class="icon icon-corner-down-right" aria-hidden="true"></span><p>Técnico em Informática · IFCE<br>Análise e Desenvolvimento de Sistemas · Unifor</p></div>
-          <a class="text-link about-trajectory-link" href="./trajetoria.html">Conheça minha trajetória <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+          <a class="text-link about-trajectory-link" href="/trajetoria.html">Conheça minha trajetória <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
@@ -213,14 +175,14 @@
         <section class="splide event-carousel" id="event-carousel" aria-labelledby="gallery-title" tabindex="0">
           <div class="splide__track">
             <ul class="splide__list">
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-presenting.webp" width="1800" height="1013" alt="Beatriz apresenta uma demonstração em uma tela azul durante um evento de tecnologia." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-conversation.webp" width="1800" height="1200" alt="Beatriz conversa com participantes em um encontro de tecnologia." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-demo-visitor.webp" width="1800" height="1200" alt="Beatriz apresenta uma solução digital a uma visitante em um estande." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-guided-tour.webp" width="1280" height="720" alt="Beatriz apresenta uma solução para um grupo de visitantes." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-fiec-team.webp" width="1800" height="1350" alt="Beatriz e colegas da Moldsoft em um evento no estande da FIEC." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-moldia-team.webp" width="1800" height="1200" alt="Beatriz e colegas apresentam o Mold IA X em um evento." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-unifor-team.webp" width="1800" height="1180" alt="Beatriz e colegas junto a uma demonstração do Mold IA X na Unifor." loading="lazy"></div></li>
-              <li class="splide__slide event-card"><div class="event-image"><img src="./assets/event-team.webp" width="1800" height="1200" alt="Beatriz com colegas durante um evento de tecnologia." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-presenting.webp" width="1800" height="1013" alt="Beatriz apresenta uma demonstração em uma tela azul durante um evento de tecnologia." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-conversation.webp" width="1800" height="1200" alt="Beatriz conversa com participantes em um encontro de tecnologia." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-demo-visitor.webp" width="1800" height="1200" alt="Beatriz apresenta uma solução digital a uma visitante em um estande." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-guided-tour.webp" width="1280" height="720" alt="Beatriz apresenta uma solução para um grupo de visitantes." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-fiec-team.webp" width="1800" height="1350" alt="Beatriz e colegas da Moldsoft em um evento no estande da FIEC." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-moldia-team.webp" width="1800" height="1200" alt="Beatriz e colegas apresentam o Mold IA X em um evento." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-unifor-team.webp" width="1800" height="1180" alt="Beatriz e colegas junto a uma demonstração do Mold IA X na Unifor." loading="lazy"></div></li>
+              <li class="splide__slide event-card"><div class="event-image"><img src="/assets/event-team.webp" width="1800" height="1200" alt="Beatriz com colegas durante um evento de tecnologia." loading="lazy"></div></li>
             </ul>
           </div>
           <div class="gallery-pagination" aria-label="Controles do carrossel" hidden>
@@ -240,7 +202,7 @@
           <p class="eyebrow">04 / Vamos começar</p>
           <h2 id="contact-title">Uma boa conversa<br>pode ser <em>o começo.</em></h2>
           <p>Escolha o canal que preferir para falar de oportunidades, produtos, parcerias ou simplesmente trocar ideia.</p>
-          <img class="city-sketch" src="./assets/urban-sketch.webp" width="1536" height="1024" alt="" loading="lazy" aria-hidden="true">
+          <img class="city-sketch" src="/assets/urban-sketch.webp" width="1536" height="1024" alt="" loading="lazy" aria-hidden="true">
         </div>
         <div class="contact-links">
           <a class="contact-item instagram-contact" id="contact-instagram" href="https://www.instagram.com/biavidalf/" target="_blank" rel="noopener noreferrer"><span><span class="contact-label">Instagram</span><span class="contact-detail">@biavidalf · mande um oi ou acompanhe os bastidores</span></span><span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span></a>
@@ -257,7 +219,4 @@
       </div>
     </section>
   </main>
-  <footer class="footer wrap"><p class="footer-brand"><img class="brand-icon" src="./assets/true-north-icon.ico" width="20" height="22" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></p><p>Feito com intenção, de Fortaleza.<span class="footer-year">2026</span></p></footer>
-</div>
-</body>
-</html>
+</BaseLayout>

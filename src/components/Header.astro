@@ -1,0 +1,20 @@
+---
+interface Props {
+  page: 'home' | 'trajectory';
+}
+
+const { page } = Astro.props;
+const home = page === 'home';
+---
+
+<header class="header">
+  <div class="header-inner wrap">
+    <a class="wordmark" id={home ? 'home-link' : undefined} href={home ? '#inicio' : '/#inicio'} aria-label="Beatriz Vidal, início"><img class="brand-icon" src="/assets/true-north-icon.ico" width="26" height="29" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></a>
+    <nav aria-label="Navegação principal">
+      <a id={home ? 'nav-projects' : undefined} href={home ? '#projetos' : '/#projetos'}>Trabalho</a>
+      <a id={home ? 'nav-about' : undefined} href={home ? '#sobre' : '/#sobre'}>Sobre</a>
+      <a id={home ? 'nav-trajectory' : undefined} href="/trajetoria.html" aria-current={home ? undefined : 'page'}>Trajetória</a>
+      <a class="nav-contact" id={home ? 'nav-contact' : undefined} href={home ? '#contato' : '/#contato'}>Vamos conversar <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+    </nav>
+  </div>
+</header>

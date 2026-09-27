@@ -1,0 +1,76 @@
+---
+import '@splidejs/splide/css/core';
+import '../styles/global.css';
+import '../styles/trajectory.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  page: 'home' | 'trajectory';
+  title: string;
+  description: string;
+  socialTitle: string;
+  socialDescription: string;
+  socialImage: string;
+  socialImageAlt: string;
+  themeColor: string;
+  structuredData?: Record<string, unknown>;
+}
+
+const {
+  page,
+  title,
+  description,
+  socialTitle,
+  socialDescription,
+  socialImage,
+  socialImageAlt,
+  themeColor,
+  structuredData,
+} = Astro.props;
+const canonical = new URL(page === 'home' ? '/' : '/trajetoria.html', Astro.site).toString();
+const socialImageUrl = new URL(socialImage, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content={themeColor}>
+    <meta name="author" content="Beatriz Vidal">
+    <meta name="description" content={description}>
+    <link rel="canonical" href={canonical}>
+    <meta property="og:title" content={socialTitle}>
+    <meta property="og:description" content={socialDescription}>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={canonical}>
+    <meta property="og:site_name" content="Beatriz Vidal">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image" content={socialImageUrl}>
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content={socialImageAlt}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={socialTitle}>
+    <meta name="twitter:description" content={socialDescription}>
+    <meta name="twitter:image" content={socialImageUrl}>
+    <meta name="twitter:image:alt" content={socialImageAlt}>
+    <title>{title}</title>
+    <link rel="icon" href="/assets/true-north-icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    <script src="../scripts/main.js"></script>
+  </head>
+  <body class:list={{ 'trajectory-page': page === 'trajectory' }}>
+    <div class="site">
+      <a class="skip-link" id="skip-content" href="#conteudo">Ir para o conteúdo</a>
+      <Header page={page} />
+      <slot />
+      <Footer page={page} />
+    </div>
+  </body>
+</html>
