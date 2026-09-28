@@ -568,3 +568,9 @@ html{overflow-x:clip}
   .about .about-image{width:min(100%,760px);padding-top:0}
 }
 @media(max-width:600px){.about.section-space{gap:27px;margin-top:32px;padding-top:51px}}
+
+/* Detalhes dos projetos em destaque seguem a grade editorial e ficam sempre visíveis. */
+.featured-details{grid-column:1/-1;border-top:1px solid var(--rule);padding:7px 42px 15px}
+.featured-details .detail-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 38px}
+@media(max-width:800px){.featured-details{padding-inline:24px}.featured-details .detail-grid{gap:19px 24px}}
+@media(max-width:680px){.featured-details .detail-grid{grid-template-columns:minmax(0,1fr)}}
