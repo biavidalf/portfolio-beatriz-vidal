@@ -51,104 +51,96 @@ workTabs.forEach((tab, index) => {
 const accordionHoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const workAccordions = Array.from(document.querySelectorAll('.work-accordion'));
+const accordionStates = new WeakMap();
+const accordionSpring = { stiffness: 280, damping: 32, mass: 0.9 };
 
-function accordionMotionId(details) {
-  const nextId = Number(details.dataset.motionId || 0) + 1;
-  details.dataset.motionId = String(nextId);
-  return nextId;
+function settleAccordion(details, expanded) {
+  const state = accordionStates.get(details);
+  if (!state) return;
+  if (state.frame !== null) window.cancelAnimationFrame(state.frame);
+  state.frame = null;
+  state.lastTime = null;
+  state.velocity = 0;
+  state.expanded = expanded;
+  state.content.style.height = expanded ? 'auto' : '0px';
+  details.open = expanded;
+  state.height = expanded ? state.content.getBoundingClientRect().height : 0;
+  details.classList.remove('is-opening', 'is-closing');
 }
 
-function expandAccordion(details, contentSelector = ':scope > .accordion-content') {
-  const content = details.querySelector(contentSelector);
-  if (!content || (details.open && !details.classList.contains('is-closing'))) return;
-
+function setAccordionExpanded(details, expanded) {
+  const state = accordionStates.get(details);
+  if (!state || (state.expanded === expanded && state.frame === null)) return;
   if (reducedMotionQuery.matches) {
-    details.open = true;
-    details.classList.remove('is-closing', 'is-opening');
-    content.style.height = 'auto';
+    settleAccordion(details, expanded);
     return;
   }
 
-  const motionId = accordionMotionId(details);
-  const currentHeight = content.getBoundingClientRect().height;
-  details.open = true;
-  details.classList.remove('is-closing');
-  details.classList.add('is-opening');
-  content.style.height = `${currentHeight}px`;
+  if (!details.open) details.open = true;
+  if (state.frame === null) state.height = state.content.getBoundingClientRect().height;
+  state.content.style.height = `${state.height}px`;
+  state.expanded = expanded;
+  details.classList.toggle('is-opening', expanded);
+  details.classList.toggle('is-closing', !expanded);
+  if (state.frame !== null) return;
 
-  window.requestAnimationFrame(() => {
-    if (Number(details.dataset.motionId) !== motionId) return;
-    content.style.height = `${content.scrollHeight}px`;
-  });
+  const step = (time) => {
+    const elapsed = state.lastTime === null ? 1 / 60 : Math.min((time - state.lastTime) / 1000, 1 / 30);
+    state.lastTime = time;
+    const target = state.expanded ? state.content.scrollHeight + state.content.clientTop : 0;
+    const acceleration = (accordionSpring.stiffness * (target - state.height) - accordionSpring.damping * state.velocity) / accordionSpring.mass;
+    state.velocity += acceleration * elapsed;
+    state.height = Math.max(0, state.height + state.velocity * elapsed);
+    state.content.style.height = `${state.height}px`;
 
-  const finishOpening = (event) => {
-    if (event.propertyName !== 'height') return;
-    content.removeEventListener('transitionend', finishOpening);
-    if (Number(details.dataset.motionId) !== motionId) return;
-    content.style.height = 'auto';
-    details.classList.remove('is-opening');
+    if (Math.abs(target - state.height) < 0.75 && Math.abs(state.velocity) < 8) {
+      settleAccordion(details, state.expanded);
+      return;
+    }
+    state.frame = window.requestAnimationFrame(step);
   };
-  content.addEventListener('transitionend', finishOpening);
+  state.lastTime = null;
+  state.frame = window.requestAnimationFrame(step);
 }
 
-function collapseAccordion(details, contentSelector = ':scope > .accordion-content') {
-  const content = details.querySelector(contentSelector);
-  if (!content || !details.open) return;
-
-  if (reducedMotionQuery.matches) {
-    content.style.height = '0px';
-    details.open = false;
-    details.classList.remove('is-closing', 'is-opening');
-    return;
-  }
-
-  const motionId = accordionMotionId(details);
-  content.style.height = `${content.getBoundingClientRect().height}px`;
-  details.classList.remove('is-opening');
-  details.classList.add('is-closing');
-  content.getBoundingClientRect();
-
-  window.requestAnimationFrame(() => {
-    if (Number(details.dataset.motionId) !== motionId) return;
-    content.style.height = '0px';
+document.querySelectorAll('.work-accordions').forEach((group) => {
+  group.addEventListener('pointerenter', () => {
+    if (accordionHoverQuery.matches) group.classList.add('is-hovering');
   });
-
-  const finishClosing = (event) => {
-    if (event.propertyName !== 'height') return;
-    content.removeEventListener('transitionend', finishClosing);
-    if (Number(details.dataset.motionId) !== motionId) return;
-    details.open = false;
-    details.classList.remove('is-closing');
-  };
-  content.addEventListener('transitionend', finishClosing);
-}
+  group.addEventListener('pointerleave', () => group.classList.remove('is-hovering'));
+});
 
 workAccordions.forEach((details) => {
   const summary = details.querySelector(':scope > summary');
   const content = details.querySelector(':scope > .accordion-content');
-  const group = details.closest('.work-accordions');
   if (!summary || !content) return;
 
+  accordionStates.set(details, { content, expanded: details.open, height: 0, velocity: 0, frame: null, lastTime: null });
   content.style.height = details.open ? 'auto' : '0px';
   summary.addEventListener('click', (event) => {
     event.preventDefault();
-    if (accordionHoverQuery.matches && details.matches(':hover')) return;
-    if (details.open && !details.classList.contains('is-closing')) collapseAccordion(details);
-    else expandAccordion(details);
+    if (accordionHoverQuery.matches && details.matches(':hover') && event.detail > 0) return;
+    setAccordionExpanded(details, !accordionStates.get(details).expanded);
   });
 
   details.addEventListener('pointerenter', () => {
     if (!accordionHoverQuery.matches) return;
-    group?.classList.add('is-hovering');
     details.classList.add('is-hovered');
-    expandAccordion(details);
+    setAccordionExpanded(details, true);
   });
 
   details.addEventListener('pointerleave', () => {
     if (!accordionHoverQuery.matches) return;
-    group?.classList.remove('is-hovering');
     details.classList.remove('is-hovered');
-    collapseAccordion(details);
+    setAccordionExpanded(details, false);
+  });
+});
+
+reducedMotionQuery.addEventListener('change', () => {
+  if (!reducedMotionQuery.matches) return;
+  workAccordions.forEach((details) => {
+    const state = accordionStates.get(details);
+    if (state && state.frame !== null) settleAccordion(details, state.expanded);
   });
 });
 

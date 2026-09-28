@@ -494,15 +494,20 @@ html{overflow-x:clip}
 .hero-visual{perspective:1200px}
 .photo-frame{isolation:isolate;transform-origin:70% 50%}
 
-/* The details remain native for keyboard and touch; JS adds measured spring-like height. */
+/* The details remain native for keyboard and touch; JS animates their height with a spring. */
 .work-accordion{transition:opacity .32s ease,background-color .32s ease}
-.work-accordions.is-hovering .work-accordion:not(.is-hovered){opacity:.4}
+.work-accordions.is-hovering .work-accordion:not(.is-hovered){opacity:.72}
 .work-accordion.is-hovered,.work-accordion[open]{background:rgba(247,244,238,.48)}
-.work-accordion>.accordion-content{box-sizing:border-box;display:block;height:0;overflow:hidden;opacity:0;padding-bottom:27px;border-top-color:transparent;transition:height .62s cubic-bezier(.2,.8,.2,1),opacity .28s ease,border-color .28s ease}
-.work-accordion[open]>.accordion-content{height:auto;opacity:1;border-top-color:var(--rule)}
-.work-accordion.is-closing>.accordion-content{opacity:0;border-top-color:transparent}
+.work-accordion.is-closing{background:transparent}
+.work-accordion>.accordion-content{box-sizing:border-box;display:block;height:0;overflow:hidden;opacity:0;padding-bottom:0;border-top:0;box-shadow:inset 0 1px 0 var(--rule);transition:opacity .38s ease}
+.work-accordion>.accordion-content::after{content:"";display:block;height:27px}
+.work-accordion[open]>.accordion-content{height:auto;opacity:1}
+.work-accordion.is-closing>.accordion-content{opacity:0}
+.work-accordion.is-closing .accordion-summary{color:var(--muted)}
+.work-accordion.is-closing .accordion-toggle{transform:rotate(45deg) translateY(-3px)}
 .work-accordion .accordion-trigger{transition:padding .45s cubic-bezier(.2,.8,.2,1),color .25s ease}
 .work-accordion.is-hovered .accordion-trigger,.work-accordion[open] .accordion-trigger{padding-block:27px}
+.work-accordion.is-closing .accordion-trigger{padding-block:22px}
 
 /* Contact channels become tactile cards with restrained depth and a cursor-following sheen. */
 .contact-links{display:block;padding-top:2px;perspective:1100px}
@@ -545,7 +550,8 @@ html{overflow-x:clip}
 @media(max-width:680px){
   .work-accordions.is-hovering .work-accordion:not(.is-hovered){opacity:1}
   .work-accordion.is-hovered .accordion-trigger,.work-accordion[open] .accordion-trigger{padding-block:23px}
-  .work-accordion>.accordion-content{padding-bottom:23px}
+  .work-accordion.is-closing .accordion-trigger{padding-block:19px}
+  .work-accordion>.accordion-content::after{height:23px}
   .contact-links{display:block}
   .contact-item,#contact-tiktok{min-height:0}
 }
