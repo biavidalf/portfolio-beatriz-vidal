@@ -62,6 +62,7 @@
 .trajectory-contact-actions{grid-column:2;display:flex;align-items:center;gap:23px;flex-wrap:wrap}
 .trajectory-page .trajectory-contact-actions .button{margin:0}
 .trajectory-contact-actions .text-link{font-size:12px}
+.capability-case-link{margin-top:14px;font-size:12px}
 .trajectory-page .footer{border-color:var(--rule)}
 .learning-divider{margin-top:37px}
 .learning-divider .eyebrow{font-size:11px;color:var(--red);margin-bottom:0}

@@ -4,6 +4,16 @@ import WorkShowcase from '../components/WorkShowcase.astro';
 import QuickEmail from '../components/QuickEmail.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const aboutPhotos = [
+  { src: '/assets/beatriz-apresentando.webp', width: 1800, height: 1013, alt: 'Beatriz apresentando uma aplicação para um grupo de pessoas em um evento.' },
+  { src: '/assets/about-volunteering.webp', width: 1200, height: 1600, alt: 'Beatriz com dois cachorros durante uma atividade de voluntariado.' },
+  { src: '/assets/about-archery.webp', width: 994, height: 1600, alt: 'Beatriz praticando arco e flecha.' },
+  { src: '/assets/about-bike.webp', width: 1200, height: 1600, alt: 'Bicicleta à beira de um lago em um dia ensolarado.' },
+  { src: '/assets/about-beach.webp', width: 960, height: 1280, alt: 'Coqueiros e guarda-sóis na praia sob um céu nublado.' },
+  { src: '/assets/about-beach-group.webp', width: 1600, height: 1067, alt: 'Grupo de pessoas reunido na praia.' },
+  { src: '/assets/about-friends.webp', width: 1600, height: 1200, alt: 'Grupo de pessoas reunido diante de árvores floridas.' },
+];
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -86,14 +96,28 @@ const structuredData = {
           <a class="about-affiliation contact-item" href="https://app.behire.com.br/" target="_blank" rel="noopener noreferrer"><div class="about-affiliation-copy"><h3>Neural Systems</h3><p>Cofundadora · desenvolvimento de produtos digitais</p><span class="about-affiliation-destination">Conhecer a BeHire</span></div><span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span></a>
           <a class="about-affiliation contact-item" href="https://moldsoft.com.br/" target="_blank" rel="noopener noreferrer"><div class="about-affiliation-copy"><h3>Moldsoft Tecnologia</h3><p>Coordenadora da vertente de inovação</p><span class="about-affiliation-destination">Visitar a Moldsoft</span></div><span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span></a>
         </div>
-        <p class="about-personal">Fora das telas: amigos, família, arco e flecha e um olhar curioso para a cidade.</p>
+        <p class="about-personal">Fora das telas: recifense morando em Fortaleza. Gosto de estar com amigos e família, praticar arco e flecha e explorar a cidade com um olhar curioso.</p>
         <div class="education"><span class="icon icon-corner-down-right" aria-hidden="true"></span><p>Técnico em Informática · IFCE<br>Análise e Desenvolvimento de Sistemas · Unifor</p></div>
         
         <a class="text-link about-trajectory-link" href="/trajetoria.html" style="margin-top: 14px">Conheça minha trajetória <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
       </div>
       <div class="about-image">
-        <img src="/assets/beatriz-apresentando.webp" width="1800" height="1013" alt="Beatriz apresentando uma aplicação para um grupo de pessoas em um evento." loading="lazy">
-        <p class="image-caption">Compartilhar também faz parte do meu trabalho.</p>
+        <div class="about-slideshow" aria-label="Fotos de trabalho, voluntariado e vida fora das telas">
+          {aboutPhotos.map((photo, index) => (
+            <div class:list={['about-slide', { 'is-active': index === 0 }]} aria-hidden={index === 0 ? 'false' : 'true'}>
+              <img class="about-slide-photo" src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async">
+            </div>
+          ))}
+        </div>
+        <div class="about-image-meta">
+          <p class="image-caption">Entre trabalho, voluntariado e vida fora das telas.</p>
+          <div class="about-slide-controls" role="group" aria-label="Controles das fotos" hidden>
+            <span class="about-slide-count" aria-hidden="true">01 / 07</span>
+            <button class="about-slide-arrow" type="button" data-about-prev aria-label="Foto anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg></button>
+            <button class="about-slide-arrow" type="button" data-about-next aria-label="Próxima foto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg></button>
+            <button class="about-slide-pause" type="button" data-about-pause aria-pressed="false">Pausar</button>
+          </div>
+        </div>
       </div>
     </section>
 
