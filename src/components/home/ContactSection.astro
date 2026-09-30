@@ -1,0 +1,117 @@
+---
+import '../../styles/contact.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { homeCopy } from '../../content/home-copy';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { contact: copy } = getLocalizedContent(homeCopy, locale);
+---
+
+<section
+  class="contact"
+  id="canais"
+  aria-labelledby="contact-title"
+  data-copy-button={copy.copyEmail}
+  data-copied-button={copy.copiedEmail}
+  data-copied-status={copy.copiedStatus}
+  data-copy-failure={copy.copyFailure}
+>
+  <div class="contact-inner page-wrap">
+    <div class="contact-invitation">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h2 id="contact-title">
+        {copy.titleFirst}
+        <br />
+        <em>{copy.titleSecond}</em>
+      </h2>
+      <p>{copy.description}</p>
+      <img
+        class="city-sketch"
+        src="/assets/urban-sketch.webp"
+        width="1536"
+        height="1024"
+        alt=""
+        loading="lazy"
+        aria-hidden="true"
+      />
+    </div>
+    <div class="contact-links">
+      <a
+        class="contact-item instagram-contact"
+        id="contact-instagram"
+        href="https://www.instagram.com/biavidalf/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>
+          <span class="contact-label">Instagram</span>
+          <span class="contact-detail">{copy.instagramDetail}</span>
+        </span>
+        <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+      </a>
+      <a
+        class="contact-item"
+        id="contact-whatsapp"
+        href="https://wa.me/5585997008387"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>
+          <span class="contact-label">WhatsApp</span>
+          <span class="contact-detail">{copy.whatsappDetail}</span>
+        </span>
+        <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+      </a>
+      <a
+        class="contact-item"
+        id="contact-linkedin"
+        href="https://www.linkedin.com/in/beatriz-vidal-bf4/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-detail">{copy.linkedinDetail}</span>
+        </span>
+        <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+      </a>
+      <div class="email-row">
+        <a class="contact-item" id="contact-email" href="mailto:beatrizvidal.dev@gmail.com">
+          <span>
+            <span class="contact-label">{copy.emailLabel}</span>
+            <span class="contact-detail email-address">{copy.emailDetail}</span>
+          </span>
+          <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+        </a>
+        <button class="copy-email" type="button" aria-label={copy.copyEmailLabel} hidden>
+          {copy.copyEmail}
+        </button>
+      </div>
+      <a
+        class="contact-item"
+        id="contact-tiktok"
+        href="https://www.tiktok.com/@_vidalb"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>
+          <span class="contact-label">TikTok</span>
+          <span class="contact-detail">{copy.tiktokDetail}</span>
+        </span>
+        <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+      </a>
+      <div class="contact-footnote">
+        <p>{copy.phonePrompt}</p>
+        <a id="contact-phone" href="tel:+5585997008387">
+          {copy.phoneAction} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </div>
+      <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<script src="../../scripts/contact.js"></script>

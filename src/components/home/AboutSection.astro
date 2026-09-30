@@ -1,0 +1,124 @@
+---
+import '../../styles/about.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { homeContent } from '../../content/home';
+import { homeCopy } from '../../content/home-copy';
+import { getLocalizedPath } from '../../i18n/routes';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { aboutPhotos } = getLocalizedContent(homeContent, locale);
+const { about: copy } = getLocalizedContent(homeCopy, locale);
+---
+
+<section class="about page-wrap section-space" id="sobre" aria-labelledby="about-title">
+  <div class="about-copy">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h2 id="about-title">
+      {copy.titleFirstLine}
+      <br />
+      <em>
+        {copy.titleEmphasisFirst} <span class="about-together">{copy.titleEmphasisSecond}</span>
+      </em>
+    </h2>
+    <p>{copy.description}</p>
+    <div class="about-affiliations" aria-label={copy.affiliationsLabel}>
+      <a
+        class="about-affiliation contact-item"
+        href="https://app.behire.com.br/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="about-affiliation-copy">
+          <h3>Neural Systems</h3>
+          <p>{copy.behireDescription}</p>
+          <span class="about-affiliation-destination">{copy.behireLink}</span>
+        </div>
+        <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+      </a>
+      <a
+        class="about-affiliation contact-item"
+        href="https://moldsoft.com.br/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="about-affiliation-copy">
+          <h3>Moldsoft Tecnologia</h3>
+          <p>{copy.moldsoftDescription}</p>
+          <span class="about-affiliation-destination">{copy.moldsoftLink}</span>
+        </div>
+        <span class="icon icon-arrow-up-right contact-arrow" aria-hidden="true"></span>
+      </a>
+    </div>
+    <p class="about-personal">{copy.personal}</p>
+    <div class="education">
+      <span class="icon icon-corner-down-right" aria-hidden="true"></span>
+      <p>
+        {copy.educationFirst}
+        <br />
+        {copy.educationSecond}
+      </p>
+    </div>
+
+    <a class="text-link about-trajectory-link" href={getLocalizedPath('trajectory', locale)}>
+      {copy.trajectoryLink} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="about-image">
+    <div class="about-slideshow" aria-label={copy.slideshowLabel}>
+      {aboutPhotos.map((photo, index) => (
+        <div
+          class:list={['about-slide', { 'is-active': index === 0 }]}
+          aria-hidden={index === 0 ? 'false' : 'true'}
+        >
+          <img
+            class="about-slide-photo"
+            src={photo.src}
+            width={photo.width}
+            height={photo.height}
+            alt={photo.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      ))}
+    </div>
+    <div class="about-image-meta">
+      <p class="image-caption">{copy.caption}</p>
+      <div class="about-slide-controls" role="group" aria-label={copy.controlsLabel} hidden>
+        <span class="about-slide-count" aria-hidden="true">
+          01 / 07
+        </span>
+        <button
+          class="about-slide-arrow"
+          type="button"
+          data-about-prev
+          aria-label={copy.previousPhoto}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 5-7 7 7 7" />
+          </svg>
+        </button>
+        <button class="about-slide-arrow" type="button" data-about-next aria-label={copy.nextPhoto}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9 5 7 7-7 7" />
+          </svg>
+        </button>
+        <button
+          class="about-slide-pause"
+          type="button"
+          data-about-pause
+          data-label-pause={copy.pause}
+          data-label-play={copy.play}
+          aria-pressed="false"
+        >
+          {copy.pause}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="../../scripts/about.js"></script>

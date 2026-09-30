@@ -10,7 +10,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "format": "prettier --write \"src/**/*.{astro,css,js,ts}\" astro.config.mjs package.json README.md",
+    "format:check": "prettier --check \"src/**/*.{astro,css,js,ts}\" astro.config.mjs package.json README.md"
   },
   "dependencies": {
     "@splidejs/splide": "4.1.4",
@@ -19,6 +21,10 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.8",
+    "@tailwindcss/vite": "^4.3.3",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "5.9.3"
   }
 }

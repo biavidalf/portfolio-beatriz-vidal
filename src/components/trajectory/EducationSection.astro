@@ -1,0 +1,50 @@
+---
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { trajectoryContent } from '../../content/trajectory';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { education, copy } = getLocalizedContent(trajectoryContent, locale);
+const primaryEducation = education.filter((entry) => !entry.continuing);
+const continuingEducation = education.filter((entry) => entry.continuing);
+---
+
+<section class="trajectory-section page-wrap" aria-labelledby="education-title">
+  <div class="section-heading">
+    <p class="eyebrow">{copy.educationEyebrow}</p>
+    <div>
+      <h2 id="education-title">
+        {copy.educationTitleFirst}
+        <br />
+        <em>{copy.educationTitleSecond}</em>
+      </h2>
+      <p class="section-intro">{copy.educationDescription}</p>
+    </div>
+  </div>
+  <div class="education-list">
+    {primaryEducation.map((entry) => (
+      <article class="education-entry">
+        <p class="education-date">{entry.date}</p>
+        <div>
+          <h3>{entry.title}</h3>
+          <p>{entry.institution}</p>
+        </div>
+        <span class="education-kind">{entry.kind}</span>
+      </article>
+    ))}
+  </div>
+  <div class="education-list additional-learning">
+    {continuingEducation.map((entry) => (
+      <article class="education-entry course-entry">
+        <p class="education-date">{entry.date}</p>
+        <div>
+          <h3>{entry.title}</h3>
+          <p>{entry.institution}</p>
+        </div>
+        <span class="education-kind">{entry.kind}</span>
+      </article>
+    ))}
+  </div>
+</section>

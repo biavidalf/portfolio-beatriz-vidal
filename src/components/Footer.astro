@@ -1,12 +1,32 @@
 ---
+import '../styles/footer.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../i18n/types';
+import { siteContent } from '../content/site';
+import { getLocalizedPath } from '../i18n/routes';
+
 interface Props {
   page: 'home' | 'trajectory';
+  locale?: Locale;
 }
 
-const { page } = Astro.props;
+const { page, locale = defaultLocale } = Astro.props;
+const copy = getLocalizedContent(siteContent, locale);
+const homeHref = getLocalizedPath('home', locale);
 ---
 
-<footer class="footer wrap">
-  <a class="footer-brand" href={page === 'home' ? '#inicio' : '/#inicio'} aria-label="Beatriz Vidal, início"><img class="brand-icon" src="/assets/true-north-icon.ico" width="20" height="22" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></a>
-  <p>Feito com intenção, de Fortaleza.<span class="footer-year">2026</span></p>
+<footer class="footer page-wrap flex items-center justify-between max-sm:items-start max-md:flex-wrap">
+  <a
+    class="footer-brand"
+    href={page === 'home' ? '#inicio' : `${homeHref}#inicio`}
+    aria-label={copy.homeLinkLabel}
+  >
+    <img class="brand-icon" src="/assets/true-north-icon.ico" width="20" height="22" alt="" />
+    <span class="brand-name">
+      beatriz.<em>vidal</em>
+    </span>
+  </a>
+  <p>
+    {copy.footer.signature}
+    <span class="footer-year">{copy.footer.year}</span>
+  </p>
 </footer>

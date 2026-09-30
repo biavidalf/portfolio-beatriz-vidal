@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Locale } from '../../i18n/types';
+import TrajectoryHero from '../../components/trajectory/TrajectoryHero.astro';
+import ExperienceTimeline from '../../components/trajectory/ExperienceTimeline.astro';
+import EducationSection from '../../components/trajectory/EducationSection.astro';
+import ContributionsSection from '../../components/trajectory/ContributionsSection.astro';
+import CapabilitiesSection from '../../components/trajectory/CapabilitiesSection.astro';
+import TrajectoryCta from '../../components/trajectory/TrajectoryCta.astro';
+
+const locale: Locale = 'en';
+---
+
+<BaseLayout
+  locale={locale}
+  page="trajectory"
+  title="Beatriz Vidal’s Career | Software Development and Innovation"
+  description="From technical IT education to innovation coordination, explore Beatriz Vidal’s experience in software development, digital products and volunteering."
+  socialTitle="Beatriz Vidal’s Career | Software Development and Innovation"
+  socialDescription="From technical education to innovation coordination: experience in software development, digital products and volunteering."
+  socialImage="/assets/share-trajetoria.png"
+  socialImageAlt="Beatriz Vidal’s career, shaped by ideas in motion."
+  themeColor="#151513"
+>
+  <main id="conteudo">
+    <TrajectoryHero locale={locale} />
+    <ExperienceTimeline locale={locale} />
+    <EducationSection locale={locale} />
+    <ContributionsSection locale={locale} />
+    <CapabilitiesSection locale={locale} />
+    <TrajectoryCta locale={locale} />
+  </main>
+</BaseLayout>

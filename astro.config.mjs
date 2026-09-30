@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://portfolio-beatriz-vidal.vercel.app',
@@ -6,5 +7,8 @@ export default defineConfig({
   build: {
     format: 'file',
   },
-  trailingSlash: 'never',
+  trailingSlash: 'ignore',
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

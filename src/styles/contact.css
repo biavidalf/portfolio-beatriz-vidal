@@ -1,0 +1,485 @@
+@layer components {
+  .contact {
+    border-top: 1px solid var(--rule);
+    background: linear-gradient(145deg, rgba(232, 218, 199, 0.32), transparent 55%);
+    padding-top: 70px;
+    padding-bottom: 44px;
+    overflow: hidden;
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 95px;
+  }
+  .contact-invitation {
+    position: relative;
+    isolation: isolate;
+    min-height: 490px;
+  }
+  .contact-invitation .eyebrow {
+    margin-bottom: 23px;
+    color: var(--red);
+  }
+  .contact h2 {
+    font-size: 44px;
+    line-height: 1.06;
+    position: relative;
+    z-index: 1;
+  }
+  .contact h2 em {
+    color: var(--red);
+    white-space: nowrap;
+  }
+  .contact-invitation > p:not(.eyebrow) {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-top: 22px;
+    max-width: 355px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+  .contact-links {
+    padding-top: 2px;
+  }
+  .contact-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    padding: 17px 1px;
+    border-bottom: 1px solid var(--rule);
+    transition:
+      color 0.2s,
+      padding 0.2s;
+  }
+  .contact-label {
+    display: block;
+    font-size: 22px;
+    line-height: 1.5;
+    letter-spacing: -0.04em;
+  }
+  .contact-detail {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 1px;
+  }
+  .contact-arrow {
+    font-size: 27px;
+    line-height: 1;
+  }
+  .contact-item:hover {
+    color: var(--red);
+    padding-left: 9px;
+  }
+  .instagram-contact {
+    color: var(--red);
+    padding-top: 10px;
+  }
+  .email-row {
+    position: relative;
+    padding-right: 65px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .email-row .contact-item {
+    border: 0;
+  }
+  .copy-email {
+    position: absolute;
+    right: 0;
+    bottom: 27px;
+    font-size: 11px;
+    padding: 7px 9px;
+    min-height: 36px;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .copy-email:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .contact-footnote {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 15px;
+    justify-content: space-between;
+    font-size: 11px;
+    padding-top: 20px;
+    color: var(--muted);
+  }
+  .contact-footnote a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .copy-status {
+    font-size: 12px;
+    min-height: 22px;
+    color: var(--red);
+    margin-top: 7px;
+  }
+  @media (max-width: 1100px) {
+    .contact-inner {
+      gap: 60px;
+    }
+    .contact h2 {
+      font-size: 37px;
+    }
+    .contact-label {
+      font-size: 21px;
+    }
+  }
+  @media (max-width: 800px) {
+    .contact-inner {
+      gap: 45px;
+    }
+    .contact h2 {
+      font-size: 32px;
+    }
+    .contact-invitation > p:not(.eyebrow) {
+      font-size: 14px;
+    }
+    .contact-item {
+      padding-block: 16px;
+    }
+    .contact-detail {
+      font-size: 11px;
+    }
+    .contact-footnote {
+      font-size: 10px;
+    }
+    .email-row {
+      padding-right: 0;
+      padding-bottom: 30px;
+    }
+    .copy-email {
+      bottom: 9px;
+      padding: 2px 7px;
+      min-height: 27px;
+    }
+  }
+  @media (max-width: 600px) {
+    .contact {
+      padding-top: 52px;
+      padding-bottom: 20px;
+    }
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .contact-invitation {
+      min-height: 400px;
+    }
+    .contact h2 {
+      font-size: 39px;
+    }
+    .contact-invitation > p:not(.eyebrow) {
+      font-size: 15px;
+      max-width: 330px;
+      margin-top: 20px;
+    }
+    .contact-invitation .eyebrow {
+      font-size: 11px;
+      margin-bottom: 21px;
+    }
+    .contact-links {
+      position: relative;
+    }
+    .contact-item {
+      padding: 18px 2px;
+    }
+    .contact-label {
+      font-size: 23px;
+    }
+    .contact-detail {
+      font-size: 12px;
+    }
+    .contact-arrow {
+      font-size: 27px;
+    }
+    .email-row {
+      padding-right: 65px;
+      padding-bottom: 0;
+    }
+    .copy-email {
+      bottom: 28px;
+      min-height: 32px;
+      padding: 5px 7px;
+    }
+    .contact-footnote {
+      font-size: 11px;
+      padding-top: 20px;
+      gap: 6px;
+    }
+    .copy-status {
+      font-size: 11px;
+    }
+  }
+  @media (max-width: 370px) {
+    .contact h2 {
+      font-size: 34px;
+    }
+    .contact-footnote {
+      font-size: 10px;
+    }
+  }
+  @media (max-width: 800px) {
+    .contact-invitation .eyebrow {
+      font-size: 13px;
+    }
+  }
+  @media (max-width: 600px) {
+    .contact-invitation .eyebrow {
+      font-size: 13px;
+    }
+  }
+  .contact-detail {
+    max-width: 520px;
+  }
+  @media (max-width: 600px) {
+    .contact-detail {
+      max-width: calc(100vw - 90px);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+  }
+  @media (max-width: 800px) {
+    .contact-inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 26px;
+    }
+    .contact-invitation {
+      min-height: clamp(320px, 56vw, 450px);
+    }
+    .contact-links {
+      padding-top: 0;
+    }
+  }
+  @media (max-width: 680px) {
+    .contact-item,
+    .contact-item > span:first-child {
+      min-width: 0;
+    }
+  }
+  .contact-arrow.icon {
+    align-self: center;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .contact-item .icon {
+      transition: transform 0.25s ease;
+    }
+    .contact-item:hover .icon-arrow-up-right {
+      transform: translate(2px, -2px);
+    }
+  }
+  @media (max-width: 380px) {
+    .contact-label {
+      font-size: 21px;
+    }
+  }
+  .contact-links {
+    display: block;
+    padding-top: 2px;
+    perspective: 1100px;
+  }
+  .contact-item {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --shine-x: 50%;
+    --shine-y: 50%;
+    position: relative;
+    isolation: isolate;
+    min-height: 0;
+    padding: 17px 1px;
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: hidden;
+    transform: perspective(850px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition:
+      transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+      padding 0.25s ease,
+      color 0.2s,
+      background-color 0.3s ease;
+  }
+  .contact-item:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: radial-gradient(
+      circle at var(--shine-x) var(--shine-y),
+      rgba(255, 255, 255, 0.48),
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .contact-item:after {
+    display: none;
+  }
+  .contact-item > span:first-child,
+  .contact-item > .contact-arrow {
+    position: relative;
+    z-index: 1;
+    transform: translateZ(22px);
+  }
+  .contact-item:hover {
+    padding-left: 9px;
+    background: rgba(247, 244, 238, 0.28);
+    color: var(--red);
+  }
+  .contact-item:hover:before {
+    opacity: 1;
+  }
+  .contact-item:hover:after {
+    transform: translate(-9px, -7px) scale(1.08);
+  }
+  .instagram-contact {
+    padding-top: 10px;
+    color: var(--red);
+  }
+  .email-row {
+    position: relative;
+    padding-right: 65px;
+    border-bottom: 1px solid var(--rule);
+    min-width: 0;
+  }
+  .email-row .contact-item {
+    height: auto;
+    padding-right: 1px;
+    border: 0;
+  }
+  .email-row .contact-item:hover {
+    padding-left: 9px;
+  }
+  .copy-email {
+    z-index: 4;
+    right: 0;
+    bottom: 27px;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .contact-footnote {
+    padding-top: 20px;
+  }
+  .copy-status {
+    margin-top: 7px;
+  }
+  @media (max-width: 1100px) {
+    .contact-item {
+      min-height: 0;
+      padding: 16px 1px;
+    }
+    .contact-item:hover,
+    .email-row .contact-item:hover {
+      padding-left: 9px;
+    }
+  }
+  @media (max-width: 800px) {
+    .contact-item {
+      min-height: 0;
+    }
+  }
+  @media (max-width: 680px) {
+    .contact-links {
+      display: block;
+    }
+    .contact-item {
+      min-height: 0;
+    }
+  }
+  @media (max-width: 600px) {
+    .contact-invitation {
+      min-height: 370px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-item {
+      transform: none !important;
+    }
+  }
+  .contact-cta {
+    padding-block: 70px 72px;
+  }
+  @media (max-width: 800px) {
+    .contact-cta {
+      padding-block: 62px;
+    }
+  }
+  @media (max-width: 600px) {
+    .contact-cta {
+      padding-block: 55px;
+    }
+  }
+  .city-sketch {
+    width: 600px;
+    max-width: none;
+    height: 355px;
+    object-fit: cover;
+    object-position: 50% 71%;
+    position: absolute;
+    bottom: -19px;
+    left: -43px;
+    mix-blend-mode: multiply;
+    opacity: 0.65;
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 85%, transparent);
+    z-index: 0;
+    pointer-events: none;
+  }
+  @media (max-width: 1100px) {
+    .city-sketch {
+      width: 515px;
+      left: -50px;
+    }
+  }
+  @media (max-width: 800px) {
+    .city-sketch {
+      width: 460px;
+      height: 320px;
+      left: -70px;
+      bottom: 0;
+    }
+  }
+  @media (max-width: 600px) {
+    .city-sketch {
+      width: calc(100% + 70px);
+      height: 265px;
+      bottom: -12px;
+      left: -35px;
+      opacity: 0.6;
+      object-position: 50% 80%;
+      mask-image: linear-gradient(to bottom, transparent, black 25%, black 80%, transparent);
+    }
+  }
+  @media (max-width: 600px) {
+    .email-address {
+      font-size: 11px;
+    }
+  }
+  @media (max-width: 370px) {
+    .email-address {
+      font-size: 10px;
+    }
+  }
+  #contact-tiktok {
+    min-height: 0;
+  }
+  @media (max-width: 680px) {
+    #contact-tiktok {
+      min-height: 0;
+    }
+  }
+}

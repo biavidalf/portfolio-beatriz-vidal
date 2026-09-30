@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://portfolio-beatriz-vidal.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://portfolio-beatriz-vidal.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://portfolio-beatriz-vidal.vercel.app/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portfolio-beatriz-vidal.vercel.app/" />
   </url>
   <url>
     <loc>https://portfolio-beatriz-vidal.vercel.app/trajetoria.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://portfolio-beatriz-vidal.vercel.app/trajetoria.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://portfolio-beatriz-vidal.vercel.app/en/trajectory.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portfolio-beatriz-vidal.vercel.app/trajetoria.html" />
+  </url>
+  <url>
+    <loc>https://portfolio-beatriz-vidal.vercel.app/en</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://portfolio-beatriz-vidal.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://portfolio-beatriz-vidal.vercel.app/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portfolio-beatriz-vidal.vercel.app/" />
+  </url>
+  <url>
+    <loc>https://portfolio-beatriz-vidal.vercel.app/en/trajectory.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://portfolio-beatriz-vidal.vercel.app/trajetoria.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://portfolio-beatriz-vidal.vercel.app/en/trajectory.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://portfolio-beatriz-vidal.vercel.app/trajetoria.html" />
   </url>
 </urlset>

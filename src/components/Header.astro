@@ -1,21 +1,91 @@
 ---
+import '../styles/header.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../i18n/types';
+import { siteContent } from '../content/site';
+import { getLocalizedPath } from '../i18n/routes';
+
 interface Props {
   page: 'home' | 'trajectory';
+  locale?: Locale;
 }
 
-const { page } = Astro.props;
+const { page, locale = defaultLocale } = Astro.props;
+const copy = getLocalizedContent(siteContent, locale);
 const home = page === 'home';
+const homeHref = getLocalizedPath('home', locale);
+const trajectoryHref = getLocalizedPath('trajectory', locale);
+const portugueseHref = getLocalizedPath(page, 'pt-BR');
+const englishHref = getLocalizedPath(page, 'en');
 ---
 
 <header class="header">
-  <div class="header-inner wrap">
-    <a class="wordmark" id={home ? 'home-link' : undefined} href={home ? '#inicio' : '/#inicio'} aria-label="Beatriz Vidal, início"><img class="brand-icon" src="/assets/true-north-icon.ico" width="26" height="29" alt=""><span class="brand-name">beatriz.<em>vidal</em></span></a>
-    <nav aria-label="Navegação principal">
-      <a id={home ? 'nav-projects' : undefined} href={home ? '#projetos' : '/#projetos'}>Trabalho</a>
-      <a id={home ? 'nav-method' : undefined} href={home ? '#como-trabalho' : '/#como-trabalho'}>Como trabalho</a>
-      <a id={home ? 'nav-about' : undefined} href={home ? '#sobre' : '/#sobre'}>Sobre</a>
-      <a id={home ? 'nav-trajectory' : undefined} href="/trajetoria.html" aria-current={home ? undefined : 'page'}>Trajetória</a>
-      <a class="nav-contact" id={home ? 'nav-contact' : undefined} href={home ? '#contato' : '/#contato'}>Vamos conversar <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
-    </nav>
+  <div class="header-inner page-wrap flex items-center justify-between max-[600px]:flex-col max-[600px]:items-stretch max-[600px]:justify-center">
+    <a
+      class="wordmark"
+      id={home ? 'home-link' : undefined}
+      href={home ? '#inicio' : `${homeHref}#inicio`}
+      aria-label={copy.homeLinkLabel}
+    >
+      <img class="brand-icon" src="/assets/true-north-icon.ico" width="26" height="29" alt="" />
+      <span class="brand-name">
+        beatriz.<em>vidal</em>
+      </span>
+    </a>
+    <div class="header-actions">
+      <nav aria-label={copy.navigation.mainLabel}>
+        <a
+          id={home ? 'nav-projects' : undefined}
+          href={home ? '#projetos' : `${homeHref}#projetos`}
+        >
+          {copy.navigation.work}
+        </a>
+        <a
+          id={home ? 'nav-method' : undefined}
+          href={home ? '#como-trabalho' : `${homeHref}#como-trabalho`}
+        >
+          {copy.navigation.method}
+        </a>
+        <a id={home ? 'nav-about' : undefined} href={home ? '#sobre' : `${homeHref}#sobre`}>
+          {copy.navigation.about}
+        </a>
+        <a
+          id={home ? 'nav-trajectory' : undefined}
+          href={trajectoryHref}
+          aria-current={home ? undefined : 'page'}
+        >
+          {copy.navigation.trajectory}
+        </a>
+        <a
+          class="nav-contact"
+          id={home ? 'nav-contact' : undefined}
+          href={home ? '#contato' : `${homeHref}#contato`}
+        >
+          {copy.navigation.contact}{' '}
+          <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </nav>
+      <div class="language-switch" role="group" aria-label={copy.language.selectorLabel}>
+        <a
+          href={portugueseHref}
+          lang="pt-BR"
+          aria-label={copy.language.portugueseLabel}
+          aria-current={locale === 'pt-BR' ? 'page' : undefined}
+          class:list={{ 'is-active': locale === 'pt-BR' }}
+        >
+          PT
+        </a>
+        <a
+          href={englishHref}
+          lang="en"
+          aria-label={copy.language.englishLabel}
+          aria-current={locale === 'en' ? 'page' : undefined}
+          class:list={{ 'is-active': locale === 'en' }}
+        >
+          EN
+        </a>
+      </div>
+    </div>
   </div>
 </header>
+
+<script src="../scripts/header.js"></script>

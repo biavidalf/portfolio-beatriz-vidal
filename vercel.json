@@ -8,6 +8,11 @@
       "source": "/trajetoria",
       "destination": "/trajetoria.html",
       "permanent": true
+    },
+    {
+      "source": "/en/",
+      "destination": "/en",
+      "permanent": true
     }
   ]
 }

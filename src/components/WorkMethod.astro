@@ -1,18 +1,33 @@
 ---
 import '../styles/work-method.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../i18n/types';
+import { workMethodCopy } from '../content/work-method';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const copy = getLocalizedContent(workMethodCopy, locale);
 ---
 
 <script>
   const section = document.querySelector<HTMLElement>('.work-method');
-  if (section && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (
+    section &&
+    'IntersectionObserver' in window &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
     const targets = section.querySelectorAll<HTMLElement>('[data-method-reveal]');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -16px 0px' },
+    );
     section.classList.add('method-motion-ready');
     targets.forEach((target) => {
       observer.observe(target);
@@ -23,13 +38,16 @@ import '../styles/work-method.css';
     const fill = track?.querySelector<HTMLElement>('.method-rail-fill');
     const steps = track?.querySelectorAll<HTMLElement>('.method-step');
     if (track && fill && steps) {
-      const stepObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          stepObserver.unobserve(entry.target);
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      const stepObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            stepObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+      );
       section.classList.add('method-scroll-ready');
       steps.forEach((step) => stepObserver.observe(step));
 
@@ -37,7 +55,10 @@ import '../styles/work-method.css';
       const updateProgress = () => {
         progressFrame = 0;
         const rect = track.getBoundingClientRect();
-        const progress = Math.max(0, Math.min(1, (window.innerHeight * 0.58 - rect.top) / rect.height));
+        const progress = Math.max(
+          0,
+          Math.min(1, (window.innerHeight * 0.58 - rect.top) / rect.height),
+        );
         fill.style.height = `${progress * 100}%`;
       };
       const queueProgress = () => {
@@ -53,36 +74,69 @@ import '../styles/work-method.css';
   }
 </script>
 
-<section class="work-method wrap section-space" id="como-trabalho" aria-labelledby="method-title">
+<section
+  class="work-method page-wrap pt-[105px] md:pt-[75px] max-sm:pt-[65px]"
+  id="como-trabalho"
+  aria-labelledby="method-title"
+>
   <div class="method-card">
-  <div class="method-heading" data-method-reveal>
-    <p class="eyebrow">02 / Como eu trabalho</p>
-    <div class="method-heading-grid">
-      <h2 id="method-title">IA para acelerar.<br>Processo para <em>evoluir.</em></h2>
-      <p class="method-intro">Combatendo um dos maiores problemas que temos hoje, aplico processos estruturados para o time usar ferramentas e IA do jeito certo, aumentando produtividade e mantendo qualidade. </p>
-    </div>
-  </div>
-
-  <div class="method-workbench" data-method-reveal>
-    <div class="method-principle">
-      <p class="eyebrow"><span class="method-signal" aria-hidden="true"></span> Meu papel no time</p>
-      <h3>Eu olho para o todo.<br><em>O time avança com clareza.</em></h3>
-      <p class="method-principle-teaser">Coordeno uma equipe de oito pessoas e acompanho três produtos em produção. Estou nas conversas de estratégia, nas decisões de escopo e nas dúvidas que aparecem enquanto o produto ganha forma.</p>
-      <p class="method-principle-content">No desenvolvimento, a IA não trabalha sem regras. As especificações, arquitetura e boas práticas orientam o trabalho, dando prioridade ao contexto do produto. Acompanho revisão técnica e testes para manter os produtos estáveis e preparados para crescer. A conversa com clientes e pesquisa constante de mercado e inovação é crucial na hora de decidir os próximos passos.</p>
-      <a class="text-link" style="hover-" href="https://www.linkedin.com/in/beatriz-vidal-bf4/" target="_blank" rel="noopener noreferrer">Conectar no LinkedIn <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
-    </div>
-
-    <div class="method-process" aria-label="Meu processo de desenvolvimento">
-      <p class="method-process-label eyebrow">Da conversa ao produto em uso</p>
-      <div class="method-track-shell">
-        <span class="method-rail" aria-hidden="true"><span class="method-rail-fill"></span></span>
-        <ol class="method-steps">
-          <li class="method-step"><span class="method-step-marker" aria-hidden="true"></span><span class="method-step-number" aria-hidden="true">01</span><div class="method-step-heading"><strong>Encontrar oportunidades e priorizar</strong><p>Junto sinais dos clientes, mercado e tecnologia aos objetivos do produto para decidir o que desenvolver agora.</p></div></li>
-          <li class="method-step"><span class="method-step-marker" aria-hidden="true"></span><span class="method-step-number" aria-hidden="true">02</span><div class="method-step-heading"><strong>Estruturar para construir e crescer</strong><p>Defino um caminho com escopo, especificações e decisões técnicas claras. Assim, time e IA avançam com contexto e o produto pode crescer com consistência.</p></div></li>
-          <li class="method-step"><span class="method-step-marker" aria-hidden="true"></span><span class="method-step-number" aria-hidden="true">03</span><div class="method-step-heading"><strong>Validar antes e depois de publicar</strong><p>Acompanho revisão técnica, testes em homologação e checagem em produção. O retorno dos clientes orienta as próximas melhorias.</p></div></li>
-        </ol>
+    <div class="method-heading" data-method-reveal>
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <div class="method-heading-grid">
+        <h2 id="method-title">
+          {copy.titleFirst}
+          <br />
+          <em>{copy.titleSecond}</em>
+        </h2>
+        <p class="method-intro">{copy.introduction}</p>
       </div>
     </div>
-  </div>
+
+    <div class="method-workbench" data-method-reveal>
+      <div class="method-principle">
+        <p class="eyebrow">
+          <span class="method-signal" aria-hidden="true"></span> {copy.roleLabel}
+        </p>
+        <h3>
+          {copy.roleTitleFirst}
+          <br />
+          <em>{copy.roleTitleSecond}</em>
+        </h3>
+        <p class="method-principle-teaser">{copy.roleTeaser}</p>
+        <p class="method-principle-content">{copy.roleDescription}</p>
+        <a
+          class="text-link"
+          style="hover-"
+          href="https://www.linkedin.com/in/beatriz-vidal-bf4/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.linkedin} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="method-process" aria-label={copy.processTitle}>
+        <p class="method-process-label eyebrow">{copy.processLabel}</p>
+        <div class="method-track-shell">
+          <span class="method-rail" aria-hidden="true">
+            <span class="method-rail-fill"></span>
+          </span>
+          <ol class="method-steps">
+            {copy.steps.map((step, index) => (
+              <li class="method-step">
+                <span class="method-step-marker" aria-hidden="true"></span>
+                <span class="method-step-number" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div class="method-step-heading">
+                  <strong>{step.title}</strong>
+                  <p>{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

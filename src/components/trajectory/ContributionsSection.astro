@@ -1,0 +1,74 @@
+---
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { trajectoryContent } from '../../content/trajectory';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { contributions, copy } = getLocalizedContent(trajectoryContent, locale);
+---
+
+<section
+  class="trajectory-section selected-work"
+  id="contribuicoes"
+  aria-labelledby="selected-work-title"
+>
+  <div class="page-wrap">
+    <div class="section-heading">
+      <p class="eyebrow">{copy.contributionEyebrow}</p>
+      <div>
+        <h2 id="selected-work-title">
+          {copy.contributionTitleFirst}
+          <br />
+          <em>{copy.contributionTitleSecond}</em>
+        </h2>
+        <p class="section-intro">{copy.contributionDescription}</p>
+      </div>
+    </div>
+    <article class="volunteer-feature" aria-labelledby="volunteer-title">
+      <div class="volunteer-story">
+        <h3 id="volunteer-title">
+          {copy.volunteerTitleFirst} <em>{copy.volunteerTitleSecond}</em>
+        </h3>
+        <p>{copy.volunteerDescription}</p>
+        <p class="volunteer-note">{copy.volunteerNote}</p>
+      </div>
+      <figure class="volunteer-photo">
+        <img
+          src="/assets/beatriz-voluntariado.jpg"
+          width="1368"
+          height="1824"
+          alt={copy.volunteerAlt}
+          loading="lazy"
+        />
+        <figcaption>{copy.volunteerCaption}</figcaption>
+      </figure>
+    </article>
+    <div class="contribution-pair">
+      {contributions.map((entry) => (
+        <article class="contribution-item">
+          <p class="eyebrow">{entry.eyebrow}</p>
+          <h3>
+            {entry.titleLines.map((line, index) => (
+              <>
+                {index > 0 && <br />}
+                {line}
+              </>
+            ))}
+            {entry.emphasisPrefix && (
+              <>
+                <br />
+                {entry.emphasisPrefix}
+              </>
+            )}
+            <br />
+            <em>{entry.emphasis}</em>
+          </h3>
+          <p>{entry.description}</p>
+          <p class="contribution-footnote">{entry.footnote}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

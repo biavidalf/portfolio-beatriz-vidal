@@ -1,12 +1,15 @@
 ---
 import '@splidejs/splide/css/core';
+import '../styles/tailwind.css';
 import '../styles/global.css';
-import '../styles/trajectory.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import type { Locale } from '../i18n/types';
+import { getLocalizedPath } from '../i18n/routes';
 
 interface Props {
   page: 'home' | 'trajectory';
+  locale?: Locale;
   title: string;
   description: string;
   socialTitle: string;
@@ -19,6 +22,7 @@ interface Props {
 
 const {
   page,
+  locale = 'pt-BR',
   title,
   description,
   socialTitle,
@@ -28,49 +32,65 @@ const {
   themeColor,
   structuredData,
 } = Astro.props;
-const canonical = new URL(page === 'home' ? '/' : '/trajetoria.html', Astro.site).toString();
+const canonical = new URL(getLocalizedPath(page, locale), Astro.site).toString();
+const portugueseAlternate = new URL(getLocalizedPath(page, 'pt-BR'), Astro.site).toString();
+const englishAlternate = new URL(getLocalizedPath(page, 'en'), Astro.site).toString();
 const socialImageUrl = new URL(socialImage, Astro.site).toString();
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={locale}>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content={themeColor}>
-    <meta name="author" content="Beatriz Vidal">
-    <meta name="description" content={description}>
-    <link rel="canonical" href={canonical}>
-    <meta property="og:title" content={socialTitle}>
-    <meta property="og:description" content={socialDescription}>
-    <meta property="og:type" content="website">
-    <meta property="og:url" content={canonical}>
-    <meta property="og:site_name" content="Beatriz Vidal">
-    <meta property="og:locale" content="pt_BR">
-    <meta property="og:image" content={socialImageUrl}>
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content={socialImageAlt}>
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content={socialTitle}>
-    <meta name="twitter:description" content={socialDescription}>
-    <meta name="twitter:image" content={socialImageUrl}>
-    <meta name="twitter:image:alt" content={socialImageAlt}>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content={themeColor} />
+    <meta name="author" content="Beatriz Vidal" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pt-BR" href={portugueseAlternate} />
+    <link rel="alternate" hreflang="en" href={englishAlternate} />
+    <link rel="alternate" hreflang="x-default" href={portugueseAlternate} />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={socialDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Beatriz Vidal" />
+    <meta property="og:locale" content={locale === 'pt-BR' ? 'pt_BR' : 'en'} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={socialDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <title>{title}</title>
-    <link rel="icon" href="/assets/true-north-icon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
-    <script src="../scripts/main.js"></script>
+    <link rel="icon" href="/assets/true-north-icon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
   </head>
-  <body class:list={{ 'trajectory-page': page === 'trajectory' }}>
-    <div class="site">
-      <a class="skip-link" id="skip-content" href="#conteudo">Ir para o conteúdo</a>
-      <Header page={page} />
+  <body
+    class:list={[
+      'bg-paper font-body text-ink antialiased',
+      { 'trajectory-page': page === 'trajectory' },
+    ]}
+  >
+    <div class="site min-h-screen">
+      <a class="skip-link" id="skip-content" href="#conteudo" lang={locale}>
+        {locale === 'pt-BR' ? 'Ir para o conteúdo' : 'Skip to content'}
+      </a>
+      <Header page={page} locale={locale} />
       <slot />
-      <Footer page={page} />
+      <Footer page={page} locale={locale} />
     </div>
   </body>
 </html>

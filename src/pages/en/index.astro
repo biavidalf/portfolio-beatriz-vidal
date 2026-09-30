@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Locale } from '../../i18n/types';
+import HeroSection from '../../components/home/HeroSection.astro';
+import AboutSection from '../../components/home/AboutSection.astro';
+import EventGallery from '../../components/home/EventGallery.astro';
+import ContactCta from '../../components/home/ContactCta.astro';
+import ContactSection from '../../components/home/ContactSection.astro';
+import WorkShowcase from '../../components/WorkShowcase.astro';
+import WorkMethod from '../../components/WorkMethod.astro';
+
+const locale: Locale = 'en';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://portfolio-beatriz-vidal.vercel.app/en#website',
+      url: 'https://portfolio-beatriz-vidal.vercel.app/en',
+      name: 'Beatriz Vidal',
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://portfolio-beatriz-vidal.vercel.app/#beatriz',
+      name: 'Beatriz Vidal',
+      url: 'https://portfolio-beatriz-vidal.vercel.app/en',
+      jobTitle: 'Software developer and innovation coordinator',
+      sameAs: [
+        'https://www.instagram.com/biavidalf/',
+        'https://www.linkedin.com/in/beatriz-vidal-bf4/',
+        'https://www.tiktok.com/@_vidalb',
+        'https://github.com/biavidalf',
+      ],
+    },
+  ],
+};
+---
+
+<BaseLayout
+  locale={locale}
+  page="home"
+  title="Beatriz Vidal | Digital Products and Innovation"
+  description="I’m Beatriz Vidal. I build applications, coordinate innovation initiatives and turn real-world challenges into digital products. Explore my work and get in touch."
+  socialTitle="Beatriz Vidal | Digital Products and Innovation"
+  socialDescription="I help turn real-world challenges into digital products. Explore my work in software development and innovation, and let’s talk."
+  socialImage="/assets/share-home.png"
+  socialImageAlt="Beatriz Vidal helps turn real-world challenges into digital products."
+  themeColor="#F0ECE3"
+  structuredData={structuredData}
+>
+  <main id="conteudo">
+    <HeroSection locale={locale} />
+    <WorkShowcase locale={locale} />
+    <WorkMethod locale={locale} />
+    <AboutSection locale={locale} />
+    <EventGallery locale={locale} />
+    <ContactCta locale={locale} />
+    <ContactSection locale={locale} />
+  </main>
+</BaseLayout>

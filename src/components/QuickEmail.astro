@@ -1,29 +1,87 @@
 ---
 import '../styles/quick-email.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../i18n/types';
+import { quickContactCopy } from '../content/quick-contact';
 
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = defaultLocale } = Astro.props;
 const directDelivery = import.meta.env.PUBLIC_CONTACT_DIRECT_ENABLED === 'true';
+const copy = getLocalizedContent(quickContactCopy, locale);
 ---
 
 <aside class="quick-email-card" aria-labelledby="quick-email-title">
   <div class="quick-email-copy">
-    <p class="eyebrow quick-email-kicker">Uma mensagem para começar</p>
-    <h3 id="quick-email-title">Quer conversar? <em>Ficou fácil.</em></h3>
-    <p class="quick-email-intro" id="quick-contact-intro">Escreva sua mensagem e abra a conversa no WhatsApp. O texto ficará pronto para você enviar.</p>
+    <p class="eyebrow quick-email-kicker">{copy.kicker}</p>
+    <h3 id="quick-email-title">
+      {copy.titleFirst} <em>{copy.titleEmphasis}</em>
+    </h3>
+    <p class="quick-email-intro" id="quick-contact-intro">
+      {copy.introduction}
+    </p>
   </div>
-  <form id="quick-email-form" data-mode="whatsapp" data-direct-delivery={String(directDelivery)}>
-    <div class="quick-contact-modes" role="group" aria-label="Escolha como enviar sua mensagem">
-      <button class="quick-contact-mode is-active" type="button" data-contact-mode="whatsapp" aria-pressed="true">WhatsApp</button>
-      <button class="quick-contact-mode" type="button" data-contact-mode="email" aria-pressed="false">E-mail</button>
+  <form
+    id="quick-email-form"
+    data-mode="whatsapp"
+    data-direct-delivery={String(directDelivery)}
+    data-copy={JSON.stringify(copy)}
+  >
+    <div class="quick-contact-modes" role="group" aria-label={copy.modesLabel}>
+      <button
+        class="quick-contact-mode is-active"
+        type="button"
+        data-contact-mode="whatsapp"
+        aria-pressed="true"
+      >
+        {copy.whatsappLabel}
+      </button>
+      <button
+        class="quick-contact-mode"
+        type="button"
+        data-contact-mode="email"
+        aria-pressed="false"
+      >
+        {copy.emailLabel}
+      </button>
     </div>
-    <label class="quick-email-message-label" for="quick-email-message">Sua mensagem <span>edite como quiser</span></label>
-    <textarea id="quick-email-message" name="message" rows="4" required maxlength="1000" aria-describedby="quick-email-help quick-email-status">Oi, Beatriz! Conheci seu trabalho e gostaria de conversar sobre uma oportunidade, projeto ou parceria.</textarea>
+    <label class="quick-email-message-label" for="quick-email-message">
+      {copy.messageLabel} <span>{copy.editHint}</span>
+    </label>
+    <textarea
+      id="quick-email-message"
+      name="message"
+      rows="4"
+      required
+      maxlength="1000"
+      aria-describedby="quick-email-help quick-email-status"
+    >{copy.initialMessage}</textarea>
     <div class="quick-email-address-field" id="quick-email-address-field" hidden>
-      <label for="quick-email-address">Seu e-mail</label>
-      <input id="quick-email-address" name="email" type="email" placeholder="voce@empresa.com" autocomplete="email" inputmode="email" maxlength="254" aria-describedby="quick-email-help quick-email-status" disabled>
+      <label for="quick-email-address">{copy.emailAddressLabel}</label>
+      <input
+        id="quick-email-address"
+        name="email"
+        type="email"
+        placeholder={copy.emailPlaceholder}
+        autocomplete="email"
+        inputmode="email"
+        maxlength="254"
+        aria-describedby="quick-email-help quick-email-status"
+        disabled
+      />
     </div>
-    <button class="quick-contact-submit" type="submit"><span class="quick-contact-submit-label">Abrir no WhatsApp</span> <span class="icon icon-arrow-up-right" aria-hidden="true"></span></button>
-    <div class="quick-email-trap" aria-hidden="true"><label for="quick-email-website">Deixe este campo vazio</label><input id="quick-email-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-    <p class="quick-email-help" id="quick-email-help">O WhatsApp Web abrirá com a mensagem preenchida. Confirme o envio na conversa.</p>
+    <button class="quick-contact-submit" type="submit">
+      <span class="quick-contact-submit-label">{copy.submitWhatsapp}</span>
+      <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+    </button>
+    <div class="quick-email-trap" aria-hidden="true">
+      <label for="quick-email-website">{copy.websiteLabel}</label>
+      <input id="quick-email-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <p class="quick-email-help" id="quick-email-help">
+      {copy.whatsappHelp}
+    </p>
     <p class="quick-email-status" id="quick-email-status" role="status" aria-live="polite"></p>
   </form>
 </aside>
@@ -41,33 +99,51 @@ const directDelivery = import.meta.env.PUBLIC_CONTACT_DIRECT_ENABLED === 'true';
   const submitLabel = submit?.querySelector<HTMLElement>('.quick-contact-submit-label');
   const modeButtons = form?.querySelectorAll<HTMLButtonElement>('[data-contact-mode]');
   const directDelivery = form?.dataset.directDelivery === 'true';
+  const copy = JSON.parse(form?.dataset.copy ?? '{}') as {
+    introduction: string;
+    emailIntroduction: string;
+    submitWhatsapp: string;
+    submitEmail: string;
+    whatsappHelp: string;
+    emailHelp: string;
+    directEmailHelp: string;
+    messageRequired: string;
+    whatsappOpened: string;
+    openingEmail: string;
+    sending: string;
+    sent: string;
+    directFailed: string;
+    emailSubject: string;
+  };
 
-  modeButtons?.forEach((button) => button.addEventListener('click', () => {
-    if (!form || !emailField || !input || !submitLabel || !help || !intro || !status) return;
-    const mode = button.dataset.contactMode;
-    if (mode === form.dataset.mode) return;
-    form.dataset.mode = mode;
-    modeButtons.forEach((item) => {
-      const active = item === button;
-      item.classList.toggle('is-active', active);
-      item.setAttribute('aria-pressed', String(active));
-    });
-    const emailMode = mode === 'email';
-    emailField.hidden = !emailMode;
-    input.disabled = !emailMode;
-    input.required = emailMode;
-    intro.textContent = emailMode
-      ? 'Deixe seu e-mail para eu saber onde responder. A mensagem pronta é só um ponto de partida.'
-      : 'Escreva sua mensagem e abra a conversa no WhatsApp. O texto ficará pronto para você enviar.';
-    submitLabel.textContent = emailMode ? 'Enviar e-mail' : 'Abrir no WhatsApp';
-    help.textContent = emailMode
-      ? (directDelivery ? 'Recebo sua mensagem e respondo no endereço informado.' : 'Seu aplicativo de e-mail abrirá com o texto que você escreveu para confirmar o envio.')
-      : 'O WhatsApp Web abrirá com a mensagem preenchida. Confirme o envio na conversa.';
-    status.textContent = '';
-  }));
+  modeButtons?.forEach((button) =>
+    button.addEventListener('click', () => {
+      if (!form || !emailField || !input || !submitLabel || !help || !intro || !status) return;
+      const mode = button.dataset.contactMode;
+      if (mode === form.dataset.mode) return;
+      form.dataset.mode = mode;
+      modeButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      const emailMode = mode === 'email';
+      emailField.hidden = !emailMode;
+      input.disabled = !emailMode;
+      input.required = emailMode;
+      intro.textContent = emailMode ? copy.emailIntroduction : copy.introduction;
+      submitLabel.textContent = emailMode ? copy.submitEmail : copy.submitWhatsapp;
+      help.textContent = emailMode
+        ? directDelivery
+          ? copy.directEmailHelp
+          : copy.emailHelp
+        : copy.whatsappHelp;
+      status.textContent = '';
+    }),
+  );
   function openEmailDraft(address: string, message: string) {
     const body = `${message}\n\nMeu e-mail para resposta: ${address}`;
-    const subject = 'Contato pelo portfólio de Beatriz Vidal';
+    const subject = copy.emailSubject;
     window.location.href = `mailto:beatrizvidal.dev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
@@ -77,7 +153,7 @@ const directDelivery = import.meta.env.PUBLIC_CONTACT_DIRECT_ENABLED === 'true';
     if (trap?.value) return;
     const message = messageInput.value.trim();
     if (!message) {
-      messageInput.setCustomValidity('Escreva uma mensagem.');
+      messageInput.setCustomValidity(copy.messageRequired);
       messageInput.reportValidity();
       return;
     }
@@ -87,20 +163,20 @@ const directDelivery = import.meta.env.PUBLIC_CONTACT_DIRECT_ENABLED === 'true';
       url.searchParams.set('phone', '5585997008387');
       url.searchParams.set('text', message);
       window.open(url.toString(), '_blank', 'noopener,noreferrer');
-      status.textContent = 'WhatsApp Web aberto com sua mensagem. Confirme o envio na conversa.';
+      status.textContent = copy.whatsappOpened;
       return;
     }
 
     if (!input) return;
     const email = input.value.trim();
     if (!directDelivery) {
-      status.textContent = 'Abrindo seu aplicativo de e-mail para confirmar o envio.';
+      status.textContent = copy.openingEmail;
       openEmailDraft(email, message);
       return;
     }
 
     submit.disabled = true;
-    status.textContent = 'Enviando sua mensagem…';
+    status.textContent = copy.sending;
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -109,9 +185,9 @@ const directDelivery = import.meta.env.PUBLIC_CONTACT_DIRECT_ENABLED === 'true';
       });
       if (!response.ok) throw new Error('Falha no envio');
       form.reset();
-      status.textContent = 'Mensagem enviada. Respondo pelo e-mail informado!';
+      status.textContent = copy.sent;
     } catch {
-      status.textContent = 'O envio direto não funcionou. Abrindo a mensagem no seu aplicativo de e-mail.';
+      status.textContent = copy.directFailed;
       openEmailDraft(email, message);
     } finally {
       submit.disabled = false;

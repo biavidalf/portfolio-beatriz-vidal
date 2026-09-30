@@ -1,0 +1,255 @@
+@layer components {
+  .header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    background: rgba(240, 236, 227, 0.83);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .header-inner {
+    position: relative;
+    min-height: 82px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+  }
+
+  .wordmark .brand-name em {
+    color: #000;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.16px;
+    -webkit-text-stroke: 0.35px currentColor;
+  }
+
+  .brand-icon {
+    flex: none;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0);
+  }
+
+  .header nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .header nav a {
+    padding: 9px 0;
+  }
+
+  .header nav a:hover {
+    color: var(--red);
+  }
+
+  .language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .header .language-switch a {
+    display: inline-flex;
+    min-width: 38px;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 10px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: 700 11px/1 var(--sans);
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .header .language-switch a + a {
+    border-left: 1px solid var(--rule);
+  }
+
+  .header .language-switch a:hover {
+    background: transparent;
+    color: var(--red);
+  }
+
+  .header .language-switch a.is-active,
+  .trajectory-page .header .language-switch a.is-active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .header .language-switch a.is-active:hover,
+  .trajectory-page .header .language-switch a.is-active:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .header .language-switch a:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+  }
+
+  .nav-contact {
+    border-bottom: 1px solid var(--red);
+    color: var(--red);
+  }
+
+  .nav-contact span {
+    margin-left: 12px;
+  }
+
+  .nav-contact:hover {
+    color: var(--red) !important;
+  }
+
+  html {
+    scroll-padding-top: calc(var(--sticky-header-height, 82px) + 24px);
+  }
+
+  @media (max-width: 800px) {
+    .header-inner {
+      min-height: 72px;
+    }
+
+    .wordmark {
+      font-size: 21px;
+    }
+
+    .header nav {
+      gap: 22px;
+      font-size: 14px;
+    }
+
+    .header-actions {
+      gap: 18px;
+    }
+
+    .nav-contact span {
+      margin-left: 4px;
+    }
+
+    html {
+      scroll-padding-top: calc(var(--sticky-header-height, 72px) + 16px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header-inner {
+      min-height: 0;
+      gap: 6px;
+      padding-block: 8px;
+    }
+
+    .wordmark {
+      flex: none;
+      align-self: flex-start;
+      min-width: 0;
+      gap: 4px;
+      font-size: 19px;
+    }
+
+    .wordmark .brand-name {
+      font-size: 20px;
+    }
+
+    .brand-icon {
+      width: 20px;
+      height: 23px;
+    }
+
+    .header nav {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 3px 10px;
+      font-size: 12px;
+    }
+
+    .header-actions {
+      display: contents;
+    }
+
+    .header nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 4px 0;
+      white-space: nowrap;
+    }
+
+    .nav-contact {
+      border: 0;
+      font-size: 10px !important;
+    }
+
+    .nav-contact span {
+      display: none;
+    }
+
+    .header .language-switch {
+      position: absolute;
+      top: 8px;
+      right: 0;
+    }
+
+    .header .language-switch a {
+      min-width: 34px;
+      min-height: 32px;
+      padding: 6px 8px;
+    }
+
+    html {
+      scroll-padding-top: calc(var(--sticky-header-height, 72px) + 20px);
+    }
+  }
+
+  @media (max-width: 380px) {
+    .header nav {
+      gap: 3px 8px;
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .wordmark {
+      font-size: 18px;
+    }
+
+    .wordmark .brand-name {
+      font-size: 18px;
+    }
+
+    .brand-icon {
+      width: 19px;
+      height: 22px;
+    }
+
+    .header nav {
+      gap: 3px 6px;
+      font-size: 9px;
+    }
+
+    .nav-contact {
+      font-size: 9px !important;
+    }
+  }
+}

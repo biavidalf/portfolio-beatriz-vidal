@@ -1,8 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Locale } from '../i18n/types';
+import TrajectoryHero from '../components/trajectory/TrajectoryHero.astro';
+import ExperienceTimeline from '../components/trajectory/ExperienceTimeline.astro';
+import EducationSection from '../components/trajectory/EducationSection.astro';
+import ContributionsSection from '../components/trajectory/ContributionsSection.astro';
+import CapabilitiesSection from '../components/trajectory/CapabilitiesSection.astro';
+import TrajectoryCta from '../components/trajectory/TrajectoryCta.astro';
+const locale: Locale = 'pt-BR';
 ---
 
 <BaseLayout
+  locale={locale}
   page="trajectory"
   title="Trajetória de Beatriz Vidal | Desenvolvimento e inovação"
   description="Da formação técnica em Informática à coordenação de inovação, conheça a trajetória de Beatriz Vidal em desenvolvimento, produtos digitais e trabalho voluntário."
@@ -12,162 +21,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   socialImageAlt="Trajetória de Beatriz Vidal. Uma trajetória feita de ideias em movimento."
   themeColor="#151513"
 >
-<main id="conteudo">
-    <section class="trajectory-hero wrap" aria-labelledby="trajectory-title">
-      <p class="eyebrow"><span class="red-square" aria-hidden="true"></span> Desenvolvimento · coordenação · inovação</p>
-      <div class="trajectory-hero-grid">
-        <h1 id="trajectory-title">Uma trajetória<br>feita de <em>ideias em movimento.</em></h1>
-        <div class="trajectory-hero-copy">
-          <p>Comecei estudando informática, passei por suporte e desenvolvimento e hoje coordeno iniciativas de inovação. Também empreendo, desenvolvo produtos e crio conteúdo para compartilhar aprendizados. Gosto de aproximar pessoas, entender problemas e levar boas ideias até a entrega.</p>
-          <a class="text-link" href="#experiencia">Percorrer minha experiência <span class="icon icon-arrow-down" aria-hidden="true"></span></a>
-        </div>
-      </div>
-      <div class="trajectory-meta"><span>Beatriz Vidal</span><span>Fortaleza, Ceará</span><span>2018 / atual</span></div>
-    </section>
+  <main id="conteudo">
+    <TrajectoryHero locale={locale} />
 
-    <section class="trajectory-timeline" id="experiencia" aria-labelledby="experience-title">
-      <div class="timeline-layout wrap">
-        <aside class="timeline-intro">
-          <p class="eyebrow">01 / Experiência</p>
-          <h2 id="experience-title">Do primeiro código à <em>coordenação.</em></h2>
-          <p>Minha experiência cruza desenvolvimento, atendimento a pessoas e construção de produtos. Em cada etapa, aprendi a transformar necessidades reais em caminhos possíveis.</p>
-          <a href="/#projetos" class="timeline-side-link">Ver produtos e cases <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
-        </aside>
-        <div class="timeline-track-shell">
-          <div class="trajectory-rail" aria-hidden="true"><span class="trajectory-rail-fill"></span></div>
-          <ol class="timeline-list">
-            <li class="timeline-item">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <article class="timeline-card">
-                <p class="timeline-date">JUL/2025 · ATUAL</p>
-                <h3>Coordenadora de Sistemas,<br>Vertente de Inovação</h3>
-                <p class="timeline-company">Moldsoft Tecnologia · Fortaleza, CE</p>
-                <p>Participei da criação da vertente de Inovação e hoje coordeno o time técnico. Conduzo ideias até produtos, alinhando escopo, prioridades e próximos passos com clientes, equipe e lideranças.</p>
-                <p>Também represento a empresa em eventos de tecnologia, apresentando soluções e criando conexões.</p>
-                <ul class="timeline-tags"><li>Coordenação</li><li>Inovação</li><li>Produto</li><li>Alinhamento</li></ul>
-              </article>
-            </li>
-            <li class="timeline-item">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <article class="timeline-card">
-                <p class="timeline-date">JUL/2024 · JUL/2025</p>
-                <h3>Desenvolvedora Front-end</h3>
-                <p class="timeline-company">Moldsoft Tecnologia · Fortaleza, CE</p>
-                <p>Desenvolvi soluções de inovação desde a ideação até a entrega. Estruturei requisitos e protótipos, criei produtos digitais acessíveis e organizei tarefas em colaboração com o time.</p>
-                <p>Criei experiências para desktop, mobile, totens, televisores e tablets.</p>
-                <ul class="timeline-tags"><li>React</li><li>Next.js</li><li>Tailwind CSS</li><li>Acessibilidade</li></ul>
-              </article>
-            </li>
-            <li class="timeline-item">
-              <span class="timeline-marker" aria-hidden="true"></span>
-              <article class="timeline-card">
-                <p class="timeline-date">JUL/2022 · JUN/2024</p>
-                <h3>Estagiária Salesforce</h3>
-                <p class="timeline-company">Unimed Fortaleza · Fortaleza, CE</p>
-                <p>Atuei entre desenvolvimento e suporte no Salesforce, conectando as soluções técnicas às necessidades das pessoas usuárias e das rotinas comerciais.</p>
-                <p>Desenvolvi componentes Lightning Web Components, trabalhei com Apex, SOQL e Flow Builder e participei de testes com Jest. Também analisei solicitações, configurei o Sales Cloud e ajudei a resolver problemas.</p>
-                <p>Essa experiência fortaleceu minha comunicação com diferentes perfis, minha capacidade de investigar problemas e meu jeito resolutivo de apoiar as pessoas.</p>
-                <ul class="timeline-tags"><li>Salesforce Sales Cloud</li><li>LWC · Apex · SOQL</li><li>Flow Builder · Jest</li><li>Suporte e processos</li></ul>
-              </article>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
+    <ExperienceTimeline locale={locale} />
 
-    <section class="trajectory-section wrap" aria-labelledby="education-title">
-      <div class="section-heading">
-        <p class="eyebrow">02 / Formação</p>
-        <div><h2 id="education-title">Uma base prática,<br>curiosa e <em>contínua.</em></h2><p class="section-intro">Da formação técnica ao ensino superior, com espaço para seguir aprendendo.</p></div>
-      </div>
-      <div class="education-list">
-        <article class="education-entry">
-          <p class="education-date">JAN/2022 · JUN/2024</p>
-          <div><h3>Análise e Desenvolvimento de Sistemas</h3><p>Universidade de Fortaleza · UNIFOR</p></div>
-          <span class="education-kind">Tecnólogo</span>
-        </article>
-        <article class="education-entry">
-          <p class="education-date">JAN/2018 · DEZ/2021</p>
-          <div><h3>Informática</h3><p>Instituto Federal do Ceará · IFCE, Campus Fortaleza</p></div>
-          <span class="education-kind">Técnico integrado</span>
-        </article>
-      </div>
-      <div class="education-list additional-learning">
-        <article class="education-entry course-entry">
-          <p class="education-date">MAR/2025</p>
-          <div><h3>UX/UI Avançado</h3><p>Coderhouse</p></div>
-          <span class="education-kind">Curso complementar</span>
-        </article>
-        <article class="education-entry course-entry">
-          <p class="education-date">JUN/2022</p>
-          <div><h3>Hiring Coders #3 · Fullstack Web Developer</h3><p>VTEX + Gama Academy · 120 horas</p></div>
-          <span class="education-kind">Curso complementar</span>
-        </article>
-      </div>
-    </section>
+    <EducationSection locale={locale} />
 
-    <section class="trajectory-section selected-work" id="contribuicoes" aria-labelledby="selected-work-title">
-      <div class="wrap">
-        <div class="section-heading">
-          <p class="eyebrow">03 / Outras contribuições</p>
-          <div><h2 id="selected-work-title">Tecnologia também é<br>um jeito de <em>contribuir.</em></h2><p class="section-intro">Além da experiência profissional, o voluntariado e a formação abriram espaço para construir com outras pessoas.</p></div>
-        </div>
-        <article class="volunteer-feature" aria-labelledby="volunteer-title">
-          <div class="volunteer-story">
-            <h3 id="volunteer-title">ONG Jovens pela <em>Diferença</em></h3>
-            <p>A associação civil laica mobiliza jovens de Fortaleza em ações de caridade e apoio a comunidades vulneráveis. Participei de atividades em abrigos de animais, escolas e outros espaços comunitários, cuidando dos ambientes e dos pets. Também criei sites para a Jovens pela Diferença e para a Família BDL.</p>
-            <p class="volunteer-note">Uma forma de aproximar duas coisas que me movem: desenvolver aplicações e ajudar pessoas.</p>
-          </div>
-          <figure class="volunteer-photo"><img src="/assets/beatriz-voluntariado.jpg" width="1368" height="1824" alt="Beatriz com dois cachorros em um espaço de acolhimento animal" loading="lazy"><figcaption>Cuidado, presença e empatia.</figcaption></figure>
-        </article>
-        <div class="contribution-pair">
-          <article class="contribution-item">
-            <p class="eyebrow">Reconhecimento · dez/2023</p>
-            <h3>Design vencedor<br>no <em>Desafio do Futuro.</em></h3>
-            <p>Participação no desafio do Globo Esporte, com design vencedor no episódio 8, exibido no Globoplay.</p>
-            <p class="contribution-footnote">Globo Esporte / Desafio do Futuro</p>
-          </article>
-          <article class="contribution-item">
-            <p class="eyebrow">Trabalho de conclusão de curso · 2022/2024</p>
-            <h3>PHAIS+<br><em>Conexões na saúde.</em></h3>
-            <p>Plataforma web e mobile para apoiar a troca de medicamentos entre hospitais, desenvolvida como trabalho de conclusão de curso.</p>
-            <p class="contribution-footnote">React · React Native · Node.js · PostgreSQL</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <ContributionsSection locale={locale} />
 
-    <section class="trajectory-section wrap" id="como-contribuo" aria-labelledby="learning-title">
-      <div class="section-heading">
-        <p class="eyebrow">04 / Como posso contribuir</p>
-        <div><h2 id="learning-title">Código, direção<br>e <em>diálogo.</em></h2><p class="section-intro">Gosto de estar perto da construção, cuidar do caminho até a entrega e manter as pessoas na mesma página.</p></div>
-      </div>
-      <div class="capability-list">
-        <article class="capability-row">
-          <div class="capability-title"><span class="icon icon-arrow-up-right" aria-hidden="true"></span><h3>Construir<br><em>produtos.</em></h3></div>
-          <div class="capability-copy"><p>Transformo necessidades, requisitos e protótipos em produtos digitais acessíveis, atentos aos diferentes contextos de uso.</p><p class="capability-tools">React · Next.js · Tailwind CSS · Figma</p></div>
-          <div class="capability-proof"><span class="eyebrow">Na prática</span><p>Desenvolvi o site institucional Mold IA X e aplicações para desktop, mobile e totens.</p></div>
-        </article>
-        <article class="capability-row">
-          <div class="capability-title"><span class="icon icon-arrow-up-right" aria-hidden="true"></span><h3>Coordenar<br><em>entregas.</em></h3></div>
-          <div class="capability-copy"><p>Alinho escopo e prioridades, distribuo responsabilidades e ajudo o time a remover impedimentos para avançar.</p><p class="capability-tools">Coordenação técnica · Escopo · Priorização</p></div>
-          <div class="capability-proof"><span class="eyebrow">Na prática</span><p>Coordenei a implantação de um sistema de detecção de EPI e acompanhamento de produtividade em uma refinaria de grande porte no Brasil. A solução segue ativa há mais de um ano.</p><a class="text-link capability-case-link" href="https://moldiax.moldsoft.com.br/conteudos/moldblog/0" target="_blank" rel="noopener noreferrer">Ler o case da Petrobras no MoldBlog <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div>
-        </article>
-        <article class="capability-row">
-          <div class="capability-title"><span class="icon icon-arrow-up-right" aria-hidden="true"></span><h3>Conectar<br><em>pessoas.</em></h3></div>
-          <div class="capability-copy"><p>Gosto de ouvir, explicar soluções e transformar conversas entre clientes, equipe e lideranças em próximos passos claros.</p><p class="capability-tools">Comunicação · Demonstração de produtos</p></div>
-          <div class="capability-proof"><span class="eyebrow">Na prática</span><p>Represento a Moldsoft em eventos de tecnologia, apresentando produtos e criando conexões.</p><p class="capability-language"><span class="eyebrow">Idiomas</span><strong>Português nativo · Inglês avançado</strong></p></div>
-        </article>
-      </div>
-    </section>
+    <CapabilitiesSection locale={locale} />
 
-    <section class="trajectory-cta">
-      <div class="wrap trajectory-cta-inner">
-        <p class="eyebrow">05 / Próximos caminhos</p>
-        <h2>Vamos transformar<br>uma ideia em <em>conversa?</em></h2>
-        <p>Estou aberta a conhecer pessoas, trocar experiências e conversar sobre oportunidades, produtos e colaboração.</p>
-        <div class="trajectory-contact-actions"><a class="button button-red" href="https://web.whatsapp.com/send?phone=5585997008387&amp;text=Oi%2C%20Beatriz!%20Conheci%20seu%20trabalho%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade%2C%20projeto%20ou%20parceria." target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a class="text-link" href="mailto:beatrizvidal.dev@gmail.com">Prefiro e-mail <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a><a class="text-link" href="https://www.linkedin.com/in/beatriz-vidal-bf4/" target="_blank" rel="noopener noreferrer">Conectar no LinkedIn <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div>
-      </div>
-    </section>
+    <TrajectoryCta locale={locale} />
   </main>
 </BaseLayout>

@@ -1,0 +1,67 @@
+@layer components {
+  .footer {
+    gap: 22px;
+    padding-block: 26px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer > p:last-child {
+    color: var(--muted);
+    font: 12px/1.7 var(--mono);
+  }
+
+  .footer-year {
+    padding-left: 32px;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+  }
+
+  .footer-brand .brand-name {
+    font-size: 16px;
+    letter-spacing: -0.6px;
+  }
+
+  .footer-brand .brand-name em {
+    color: #000;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.16px;
+    -webkit-text-stroke: 0.35px currentColor;
+  }
+
+  .footer-brand .brand-icon {
+    width: 20px;
+    height: 22px;
+  }
+
+  @media (max-width: 800px) {
+    .footer-year {
+      padding-left: 16px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer {
+      gap: 12px;
+      padding-block: 23px;
+    }
+
+    .footer > p:last-child {
+      max-width: 48%;
+      overflow-wrap: anywhere;
+      text-align: right;
+      font-size: 9px;
+    }
+
+    .footer-year {
+      display: block;
+      margin-top: 3px;
+      padding-left: 0;
+    }
+  }
+}

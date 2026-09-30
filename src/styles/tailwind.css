@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--red);
+  --font-body: var(--sans);
+  --font-editorial: var(--serif);
+  --font-code: var(--mono);
+  --breakpoint-sm: 37.5rem;
+  --breakpoint-md: 50rem;
+  --breakpoint-lg: 68.75rem;
+  --breakpoint-xl: 93.75rem;
+}
+@utility page-wrap {
+  width: min(1280px, calc(100% - 32px));
+  margin-inline: auto;
+
+  @media (min-width: 371px) {
+    width: min(1280px, calc(100% - 40px));
+  }
+  @media (min-width: 601px) {
+    width: min(1280px, calc(100% - 48px));
+  }
+  @media (min-width: 801px) {
+    width: min(1280px, calc(100% - 72px));
+  }
+  @media (min-width: 1101px) {
+    width: min(1280px, calc(100% - 112px));
+  }
+}

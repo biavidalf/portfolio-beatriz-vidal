@@ -1,0 +1,68 @@
+---
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { trajectoryContent } from '../../content/trajectory';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { capabilities, copy } = getLocalizedContent(trajectoryContent, locale);
+---
+
+<section class="trajectory-section page-wrap" id="como-contribuo" aria-labelledby="learning-title">
+  <div class="section-heading">
+    <p class="eyebrow">{copy.capabilitiesEyebrow}</p>
+    <div>
+      <h2 id="learning-title">
+        {copy.capabilitiesTitleFirst}
+        <br />
+        <em>{copy.capabilitiesTitleSecond}</em>
+      </h2>
+      <p class="section-intro">{copy.capabilitiesDescription}</p>
+    </div>
+  </div>
+  <div class="capability-list">
+    {capabilities.map((entry) => (
+      <article class="capability-row">
+        <div class="capability-title">
+          <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+          <h3>
+            {entry.title.map((line, index) => (
+              <>
+                {index > 0 && <br />}
+                {line}
+              </>
+            ))}
+            <br />
+            <em>{entry.emphasis}</em>
+          </h3>
+        </div>
+        <div class="capability-copy">
+          <p>{entry.description}</p>
+          <p class="capability-tools">{entry.tools}</p>
+        </div>
+        <div class="capability-proof">
+          <span class="eyebrow">{copy.practicalLabel}</span>
+          <p>{entry.proof}</p>
+          {entry.caseLink && (
+            <a
+              class="text-link capability-case-link"
+              href={entry.caseLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {entry.caseLink.label}{' '}
+              <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+            </a>
+          )}
+          {entry.languages && (
+            <p class="capability-language">
+              <span class="eyebrow">{entry.languages.label}</span>
+              <strong>{entry.languages.value}</strong>
+            </p>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

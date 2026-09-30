@@ -1,0 +1,81 @@
+---
+import '../../styles/home-hero.css';
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { homeCopy } from '../../content/home-copy';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { hero: copy } = getLocalizedContent(homeCopy, locale);
+---
+
+<section class="hero page-wrap" id="inicio" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow">
+      <span class="red-square" aria-hidden="true"></span> {copy.eyebrow}
+    </p>
+    <h1 id="hero-title" aria-label={copy.accessibleHeadline}>
+      {copy.headline.map((word, index) => (
+        <span class="hero-word" aria-hidden="true">
+          <span style={`--word-index: ${index}`}>
+            {word.emphasis === 'serif' ? (
+              <em>{word.text}</em>
+            ) : word.emphasis === 'strong' ? (
+              <strong>{word.text}</strong>
+            ) : (
+              word.text
+            )}
+          </span>
+        </span>
+      ))}
+    </h1>
+    <p class="hero-intro">
+      {copy.introduction.beforeName}
+      <strong>Beatriz Vidal</strong>
+      {copy.introduction.afterName}
+    </p>
+    <div class="hero-actions">
+      <a
+        class="button button-red"
+        id="hero-email"
+        href={`mailto:beatrizvidal.dev@gmail.com?subject=${encodeURIComponent(copy.emailSubject)}`}
+      >
+        {copy.primaryAction} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+      </a>
+      <a class="text-link" id="hero-projects" href="#projetos">
+        {copy.projectsAction} <span class="icon icon-arrow-down" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <img
+        class="hero-photo"
+        src="/assets/beatriz-conversa.webp"
+        width="1400"
+        height="933"
+        alt={copy.photoAlt}
+        fetchpriority="high"
+      />
+      <div class="photo-caption">
+        <span class="icon icon-arrow-up-right caption-mark" aria-hidden="true"></span>
+        <p>
+          {copy.caption.firstLine}
+          <br />
+          <strong>{copy.caption.secondLine}</strong>
+        </p>
+      </div>
+    </div>
+    <div class="photo-meta">
+      <span>{copy.photoMeta}</span>
+      <span aria-hidden="true">[ BV ]</span>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <p>{copy.location}</p>
+    <p>
+      {copy.role.split(' / ')[0]} <span aria-hidden="true">/</span> {copy.role.split(' / ')[1]}
+    </p>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+---
+import { getLocalizedContent, defaultLocale, type Locale } from '../../i18n/types';
+import { trajectoryContent } from '../../content/trajectory';
+import { getLocalizedPath } from '../../i18n/routes';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const { experiences, copy } = getLocalizedContent(trajectoryContent, locale);
+---
+
+<section class="trajectory-timeline" id="experiencia" aria-labelledby="experience-title">
+  <div class="timeline-layout page-wrap">
+    <aside class="timeline-intro">
+      <p class="eyebrow">{copy.experienceEyebrow}</p>
+      <h2 id="experience-title">
+        {copy.experienceTitleFirst} <em>{copy.experienceTitleSecond}</em>
+      </h2>
+      <p>{copy.experienceDescription}</p>
+      <a href={`${getLocalizedPath('home', locale)}#projetos`} class="timeline-side-link">
+        {copy.experienceAction} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+      </a>
+    </aside>
+    <div class="timeline-track-shell">
+      <div class="trajectory-rail" aria-hidden="true">
+        <span class="trajectory-rail-fill"></span>
+      </div>
+      <ol class="timeline-list">
+        {experiences.map((entry) => (
+          <li class="timeline-item">
+            <span class="timeline-marker" aria-hidden="true"></span>
+            <article class="timeline-card">
+              <p class="timeline-date">{entry.date}</p>
+              <h3>
+                {entry.title.map((line, index) => (
+                  <>
+                    {index > 0 && <br />}
+                    {line}
+                  </>
+                ))}
+              </h3>
+              <p class="timeline-company">
+                {entry.company} · {entry.location}
+              </p>
+              {entry.descriptions.map((description) => (
+                <p>{description}</p>
+              ))}
+              <ul class="timeline-tags">
+                {entry.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script src="../../scripts/trajectory-timeline.js"></script>

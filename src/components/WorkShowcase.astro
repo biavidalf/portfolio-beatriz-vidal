@@ -1,115 +1,289 @@
 ---
 import '../styles/work-showcase.css';
+import ProjectAccordion from './ProjectAccordion.astro';
+import { getLocalizedContent, defaultLocale, type Locale } from '../i18n/types';
+import { projectContent } from '../content/projects';
+import { workShowcaseCopy } from '../content/work-showcase-copy';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = defaultLocale } = Astro.props;
+const projects = getLocalizedContent(projectContent, locale);
+const copy = getLocalizedContent(workShowcaseCopy, locale);
 ---
 
-<section class="projects wrap section-space" id="projetos" aria-labelledby="projects-title">
+<section
+  class="projects page-wrap pt-[105px] md:pt-[75px] max-sm:pt-[65px]"
+  id="projetos"
+  aria-labelledby="projects-title"
+>
   <div class="section-heading work-heading">
-    <p class="eyebrow">01 / Trabalho selecionado</p>
+    <p class="eyebrow">{copy.eyebrow}</p>
     <div>
-      <h2 id="projects-title">Cases &amp; <em>produtos.</em></h2>
-      <p class="section-intro">Da estratégia à produção: soluções que construí e projetos que ajudei a fazer crescer.</p>
+      <h2 id="projects-title">
+        {copy.headingFirst} <em>{copy.headingEmphasis}</em>
+      </h2>
+      <p class="section-intro">{copy.introduction}</p>
     </div>
   </div>
 
   <div class="work-tabs-anchor" aria-hidden="true"></div>
-  <div class="work-tabs" role="tablist" aria-label="Cases e produtos selecionados">
-    <button class="work-tab is-active" id="tab-cases" type="button" role="tab" aria-selected="true" aria-controls="panel-cases" tabindex="0"><span>Cases</span></button>
-    <button class="work-tab" id="tab-produtos" type="button" role="tab" aria-selected="false" aria-controls="panel-produtos" tabindex="-1"><span>Produtos</span></button>
+  <div class="work-tabs" role="tablist" aria-label={copy.tabsLabel}>
+    <button
+      class="work-tab is-active"
+      id="tab-cases"
+      type="button"
+      role="tab"
+      aria-selected="true"
+      aria-controls="panel-cases"
+      tabindex="0"
+    >
+      <span>{copy.casesTab}</span>
+    </button>
+    <button
+      class="work-tab"
+      id="tab-produtos"
+      type="button"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-produtos"
+      tabindex="-1"
+    >
+      <span>{copy.productsTab}</span>
+    </button>
   </div>
 
   <div class="work-panel" id="panel-cases" role="tabpanel" aria-labelledby="tab-cases" tabindex="0">
     <article class="featured-project refinery-project">
       <div class="refinery-stage">
-        <img src="/assets/refinery-vision-computer.png" alt="Demonstração de visão computacional em ambiente industrial, com alerta para ausência de protetor facial." width="1920" height="1080" loading="lazy" decoding="async">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/assets/refinery-vision-computer.png"
+          aria-label={copy.refinery.videoAlt}
+        >
+          <source src="/assets/refinery-epi-detection.mp4" type="video/mp4" />
+        </video>
       </div>
       <div class="project-copy">
-        <p class="eyebrow project-status"><span class="red-square" aria-hidden="true"></span> Case · IA aplicada à indústria</p>
-        <h3>Visão computacional em refinaria</h3>
-        <p>Coordenei a implantação do primeiro projeto de visão computacional na refinaria, focado em detecção de EPI, dentro do prazo e com acompanhamento próximo do cliente. O sucesso dessa entrega gerou confiança para novas negociações e ampliou nossa atuação: hoje, quatro modelos de IA estão em operação no mesmo cliente.</p>
-        <p>Sigo conectando as necessidades da operação às decisões de produto e às entregas do time técnico.</p>
-        <ul class="project-tag-list" aria-label="Destaques do case">
-          <li class="project-tag project-tag-primary">Visão computacional</li><li class="project-tag">Segurança operacional</li><li class="project-tag">4 modelos em operação</li>
+        <p class="eyebrow project-status">
+          <span class="red-square" aria-hidden="true"></span> {copy.refinery.eyebrow}
+        </p>
+        <h3>{copy.refinery.title}</h3>
+        {copy.refinery.description.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        <ul class="project-tag-list" aria-label={copy.refinery.tagsLabel}>
+          {copy.refinery.tags.map((tag, index) => (
+            <li class:list={['project-tag', { 'project-tag-primary': index === 0 }]}>{tag}</li>
+          ))}
         </ul>
-        <a class="text-link" href="https://moldiax.moldsoft.com.br/conteudos/moldblog/0" target="_blank" rel="noopener noreferrer">Ler o case da Petrobras no MoldBlog <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+        <a
+          class="text-link"
+          href="https://moldiax.moldsoft.com.br/conteudos/moldblog/0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.refinery.blogLink} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
       </div>
       <div class="featured-details">
         <div class="detail-grid">
-          <div><span class="eyebrow">O desafio</span><p>Inspeções manuais dificultavam acompanhar continuamente o uso de equipamentos de proteção em áreas críticas. O projeto precisava fazer sentido para a rotina da refinaria e demonstrar valor desde a primeira entrega.</p></div>
-          <div><span class="eyebrow">Estratégia de entrada</span><p>Começamos com um escopo menor e fechado e um formato comercial negociado com o cliente. Essa escolha viabilizou a primeira implantação e permitiu demonstrar valor na operação real.</p></div>
-          <div><span class="eyebrow">Expansão no cliente</span><p>A implantação no prazo, a qualidade da entrega e a proximidade após a entrada em produção fortaleceram a parceria. Participei das conversas e negociações para ampliar nossa atuação em segurança e produtividade. Hoje, quatro modelos de IA operam na refinaria.</p></div>
-          <div><span class="eyebrow">Minha contribuição</span><p>Coordenei prioridades, prazos, riscos e entregas do time, fazendo a ponte entre cliente, negócio e desenvolvimento. Acompanhei a implantação e sigo conduzindo a evolução das aplicações, traduzindo novas necessidades em escopo e especificações.</p></div>
+          {copy.refinery.details.map((detail) => (
+            <div>
+              <span class="eyebrow">{detail.heading}</span>
+              <p>{detail.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </article>
 
     <div class="work-accordions case-accordions">
-      <details class="work-accordion">
-        <summary class="accordion-trigger">
-          <span class="project-number" aria-hidden="true">02</span>
-          <span class="accordion-title"><span class="accordion-title-line"><strong>Try-On</strong><span class="company-badge">MoldIAX Tecnologia</span></span><small>Provador virtual e plataforma de varejo</small><span class="project-tag-list project-tag-list-compact" aria-label="Destaques do Try-On"><span class="project-tag project-tag-primary">IA generativa</span><span class="project-tag">Provador virtual</span><span class="project-tag">Em produção</span></span></span>
-          <span class="accordion-summary">Da oportunidade de mercado a um produto em uso por lojistas.</span>
-          <span class="accordion-toggle" aria-hidden="true"></span>
-        </summary>
-        <div class="accordion-content">
-          <div class="tryon-case-layout">
-            <video class="motion-preview tryon-video" autoplay muted loop playsinline preload="metadata" poster="/assets/preview-tryon.webp" aria-label="Prévia em vídeo da plataforma Try-On"><source src="/assets/preview-tryon-demo.mp4" type="video/mp4"></video>
-            <div class="detail-grid">
-              <div><span class="eyebrow">A oportunidade</span><p>Identificamos a oportunidade no varejo, acompanhamos pesquisas da área e escolhemos o momento de transformar a ideia em produto. Comprar roupa online sem saber como ela veste ainda gera dúvidas para clientes e lojas.</p></div>
-              <div><span class="eyebrow">IA generativa na prática</span><p>O Try-On usa IA generativa no provador virtual e na criação de conteúdo para o varejo. A plataforma também reúne catálogo, loja online, estoque, pedidos e indicadores para os lojistas.</p></div>
-              <div><span class="eyebrow">Minha contribuição</span><p>Participei da ideação e da estratégia e sigo à frente da evolução do produto desde o MVP. Coordeno o time, reviso escopo e especificações e incorporo feedback dos lojistas às próximas versões.</p></div>
-            </div>
+      <ProjectAccordion project={projects.tryOn}>
+        <div class="tryon-case-layout">
+          <video
+            class="motion-preview tryon-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/assets/preview-tryon.webp"
+            aria-label={copy.tryOn.videoAlt}
+          >
+            <source src="/assets/preview-tryon-demo.mp4" type="video/mp4" />
+          </video>
+          <div class="detail-grid">
+            {copy.tryOn.details.map((detail) => (
+              <div>
+                <span class="eyebrow">{detail.heading}</span>
+                <p>{detail.description}</p>
+              </div>
+            ))}
           </div>
-          <p class="project-tech-note"><strong>Na construção:</strong> React, Tailwind CSS, Docker e Amazon S3. ChatGPT apoia o desenvolvimento orientado por especificações.</p>
-          <a class="text-link" href="https://tryon.moldiax.com.br/" target="_blank" rel="noopener noreferrer">Explorar o Try-On <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
         </div>
-      </details>
+        <p class="project-tech-note">
+          <strong>{copy.technologyLabel}</strong> {copy.tryOn.techNote}
+        </p>
+        <a
+          class="text-link"
+          href="https://tryon.moldiax.com.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.tryOn.link} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </ProjectAccordion>
     </div>
   </div>
 
-  <div class="work-panel" id="panel-produtos" role="tabpanel" aria-labelledby="tab-produtos" tabindex="0" hidden>
+  <div
+    class="work-panel"
+    id="panel-produtos"
+    role="tabpanel"
+    aria-labelledby="tab-produtos"
+    tabindex="0"
+    hidden
+  >
     <article class="featured-project">
-      <div class="mascot-stage"><span class="stage-caption">Lil Mascot / Companheiro de desktop</span><span class="orbit orbit-one" aria-hidden="true"></span><span class="orbit orbit-two" aria-hidden="true"></span><img src="/assets/lil-mascot.webp" alt="Personagem do Lil Mascot: pequeno arqueiro com capuz claro e roupa verde." width="600" height="600" loading="lazy"><span class="stage-note">um pequeno passo de cada vez</span></div>
-      <div class="project-copy">
-        <p class="eyebrow project-status"><span class="red-square" aria-hidden="true"></span> Produto · organização e foco</p>
-        <h3>Lil Mascot</h3>
-        <p>Um companheiro flutuante no desktop que acompanha você entre janelas e mantém o próximo passo sempre à vista.</p>
-        <p>Nasceu de uma dificuldade que eu vivia e de estudos em psicologia, especialmente sobre pessoas neurodivergentes.</p>
-        <ul class="project-tag-list" aria-label="Tecnologias e formato do Lil Mascot"><li class="project-tag project-tag-primary">React</li><li class="project-tag">Electron</li><li class="project-tag">Aplicativo para Windows</li></ul>
-        <a class="text-link" id="lil-mascot-link" href="https://github.com/biavidalf/lil-mascot" target="_blank" rel="noopener noreferrer">Conhecer o produto <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
+      <div class="mascot-stage">
+        <span class="stage-caption">{copy.mascot.stageCaption}</span>
+        <span class="orbit orbit-one" aria-hidden="true"></span>
+        <span class="orbit orbit-two" aria-hidden="true"></span>
+        <img
+          src="/assets/lil-mascot.webp"
+          alt={copy.mascot.imageAlt}
+          width="600"
+          height="600"
+          loading="lazy"
+        />
+        <span class="stage-note">{copy.mascot.stageNote}</span>
       </div>
-      <div class="featured-details"><div class="detail-grid">
-        <div><span class="eyebrow">O desafio</span><p>Eu alternava entre ferramentas para organizar tarefas, ideias e tempo de foco. Ao fechar as janelas, perdia de vista o que precisava fazer. Também percebia como muitas ideias e projetos podiam travar o começo. Quis criar um apoio sempre à vista que ajudasse a dividir objetivos em passos menores e a tirar ideias do papel.</p></div>
-        <div><span class="eyebrow">Decisões de interface</span><p>Eu queria que o mascotinho continuasse por perto mesmo quando a pessoa estivesse usando outras janelas. Por isso ele flutua na tela, mantendo a tarefa e o temporizador à vista e trazendo lembretes para beber água, se movimentar e seguir em frente. O arqueiro veio da minha prática de arco e flecha e do meu gosto por jogos.</p></div>
-        <div><span class="eyebrow">Minha contribuição</span><p>Criei o conceito, o nome, a aparência do mascote e a interface. Também programei e testei o aplicativo para Windows, com tarefas, pequenos passos e sessões de foco.</p></div>
-        <div><span class="eyebrow">Evolução com feedback</span><p>Depois de ouvir quem testou, criei uma versão menor do mascote para telas de notebook. Algumas pessoas continuam usando o aplicativo e trazendo ideias para as próximas versões.</p></div>
-      </div></div>
+      <div class="project-copy">
+        <p class="eyebrow project-status">
+          <span class="red-square" aria-hidden="true"></span> {copy.mascot.status}
+        </p>
+        <h3>Lil Mascot</h3>
+        {copy.mascot.description.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        <ul class="project-tag-list" aria-label={copy.mascot.tagsLabel}>
+          {copy.mascot.tags.map((tag, index) => (
+            <li class:list={['project-tag', { 'project-tag-primary': index === 0 }]}>{tag}</li>
+          ))}
+        </ul>
+        <a
+          class="text-link"
+          id="lil-mascot-link"
+          href="https://github.com/biavidalf/lil-mascot"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.mascot.link} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="featured-details">
+        <div class="detail-grid">
+          {copy.mascot.details.map((detail) => (
+            <div>
+              <span class="eyebrow">{detail.heading}</span>
+              <p>{detail.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </article>
 
     <div class="work-accordions">
-      <details class="work-accordion">
-        <summary class="accordion-trigger"><span class="project-number" aria-hidden="true">02</span><span class="accordion-title"><span class="accordion-title-line"><strong>Site institucional</strong><span class="company-badge">Moldsoft Tecnologia</span></span><small>Uma experiência digital para apresentar a empresa e suas soluções</small><span class="project-tag-list project-tag-list-compact" aria-label="Destaques do site"><span class="project-tag project-tag-primary">Next.js</span><span class="project-tag">SEO</span><span class="project-tag">Responsivo</span></span></span><span class="accordion-summary">Objetivo, design e código conectados em um site pronto para evoluir.</span><span class="accordion-toggle" aria-hidden="true"></span></summary>
-        <div class="accordion-content">
-          <div class="project-media-layout">
-            <video class="motion-preview project-preview-video" autoplay muted loop playsinline preload="metadata" poster="/assets/preview-moldiax-site.webp" aria-label="Prévia em vídeo do site institucional da Moldsoft"><source src="/assets/preview-moldiax-demo.mp4" type="video/mp4"></video>
-            <div class="detail-grid">
-              <div><span class="eyebrow">O objetivo</span><p>Apresentar a Moldsoft, suas soluções e diferentes frentes em muitas páginas, com navegação clara e manutenção viável a longo prazo.</p></div>
-              <div><span class="eyebrow">Como trabalhei</span><p>Alinhei os objetivos do site e revisei as interfaces em ciclos com o designer. Organizei a implementação em componentes reutilizáveis, pensando em desempenho, descoberta do conteúdo e evolução das páginas.</p></div>
-              <div><span class="eyebrow">O que entreguei</span><p>Um site responsivo com blog, carrosséis, sliders e transições sutis para apresentar o conteúdo de cada área.</p></div>
-            </div>
+      <ProjectAccordion project={projects.moldsoftSite}>
+        <div class="project-media-layout">
+          <video
+            class="motion-preview project-preview-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/assets/preview-moldiax-site.webp"
+            aria-label={copy.moldsoftSite.videoAlt}
+          >
+            <source src="/assets/preview-moldiax-demo.mp4" type="video/mp4" />
+          </video>
+          <div class="detail-grid">
+            {copy.moldsoftSite.details.map((detail) => (
+              <div>
+                <span class="eyebrow">{detail.heading}</span>
+                <p>{detail.description}</p>
+              </div>
+            ))}
           </div>
-          <ol class="project-flow" aria-label="Etapas de desenvolvimento do site"><li>Entender o objetivo</li><li>Alinhar a interface</li><li>Desenvolver</li><li>Testar e publicar</li><li>Evoluir</li></ol>
-          <p class="project-tech-note"><strong>Na construção:</strong> Next.js, React, Tailwind CSS, Docker e Amazon S3. ChatGPT apoia o desenvolvimento orientado por especificações.</p>
-          <a class="text-link" href="https://moldsoft.com.br/" target="_blank" rel="noopener noreferrer">Visitar o site <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a>
         </div>
-      </details>
-      <details class="work-accordion">
-        <summary class="accordion-trigger"><span class="project-number" aria-hidden="true">03</span><span class="accordion-title"><span class="accordion-title-line"><strong>TumTumPá</strong><span class="company-badge">Neural Systems</span></span><small>Repertório, modo palco e comunidade musical</small><span class="project-tag-list project-tag-list-compact" aria-label="Destaques do TumTumPá"><span class="project-tag project-tag-primary">React</span><span class="project-tag">Modo palco</span><span class="project-tag">Comunidade</span></span></span><span class="accordion-summary">Cifras, setlists e banda no mesmo tempo.</span><span class="accordion-toggle" aria-hidden="true"></span></summary>
-        <div class="accordion-content"><div class="detail-grid"><div><span class="eyebrow">O desafio</span><p>Manter cifras, ordem do show e músicos alinhados durante o ensaio e a apresentação.</p></div><div><span class="eyebrow">Como funciona</span><p>Organiza repertórios e setlists compartilhadas, transpõe cifras e sincroniza a letra no modo palco. O mural também aproxima bandas e músicos por cidade, instrumento e objetivo.</p></div><div><span class="eyebrow">Em evolução</span><p>Os classificados de instrumentos e equipamentos ainda estão em desenvolvimento.</p></div></div><p class="project-tech-note"><strong>Na construção:</strong> Next.js, React, Tailwind CSS, Docker e Amazon S3. ChatGPT apoia o desenvolvimento orientado por especificações.</p><a class="text-link" href="https://tumtumpa.vercel.app/" target="_blank" rel="noopener noreferrer">Explorar TumTumPá <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div>
-      </details>
-      <details class="work-accordion">
-        <summary class="accordion-trigger"><span class="project-number" aria-hidden="true">04</span><span class="accordion-title"><span class="accordion-title-line"><strong>BeHire</strong><span class="company-badge">Neural Systems</span></span><small>Marketing com IA orientada pela marca</small><span class="project-tag-list project-tag-list-compact" aria-label="Destaques da BeHire"><span class="project-tag project-tag-primary">IA generativa</span><span class="project-tag">React</span><span class="project-tag">Revisão humana</span></span></span><span class="accordion-summary">Estratégia, produção e aprovação num só ciclo.</span><span class="accordion-toggle" aria-hidden="true"></span></summary>
-        <div class="accordion-content"><div class="detail-grid"><div><span class="eyebrow">O desafio</span><p>Transformar a identidade de uma marca em conteúdo consistente sem perder contexto, tom de voz ou controle editorial.</p></div><div><span class="eyebrow">Como funciona</span><p>Um perfil de marca orienta a estratégia e o calendário. A IA ajuda a produzir textos, carrosséis e imagens; pessoas revisam, aprovam e agendam as publicações.</p></div><div><span class="eyebrow">Controle editorial</span><p>O fluxo registra revisões e aprovações, mantendo o histórico das decisões da equipe.</p></div></div><p class="project-tech-note"><strong>Na construção:</strong> Next.js, React, Tailwind CSS, Docker e Amazon S3. ChatGPT apoia o desenvolvimento orientado por especificações.</p><a class="text-link" href="https://app.behire.com.br/" target="_blank" rel="noopener noreferrer">Conhecer a BeHire <span class="icon icon-arrow-up-right" aria-hidden="true"></span></a></div>
-      </details>
+        <ol class="project-flow" aria-label={copy.moldsoftSite.flowLabel}>
+          {copy.moldsoftSite.flowSteps.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+        <p class="project-tech-note">
+          <strong>{copy.technologyLabel}</strong> {copy.moldsoftSite.techNote}
+        </p>
+        <a
+          class="text-link"
+          href="https://moldsoft.com.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.moldsoftSite.link} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </ProjectAccordion>
+      <ProjectAccordion project={projects.tumtumpa}>
+        <div class="detail-grid">
+          {copy.tumtumpa.details.map((detail) => (
+            <div>
+              <span class="eyebrow">{detail.heading}</span>
+              <p>{detail.description}</p>
+            </div>
+          ))}
+        </div>
+        <p class="project-tech-note">
+          <strong>{copy.technologyLabel}</strong> {copy.tumtumpa.techNote}
+        </p>
+        <a
+          class="text-link"
+          href="https://tumtumpa.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.tumtumpa.link} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </ProjectAccordion>
+      <ProjectAccordion project={projects.behire}>
+        <div class="detail-grid">
+          {copy.behire.details.map((detail) => (
+            <div>
+              <span class="eyebrow">{detail.heading}</span>
+              <p>{detail.description}</p>
+            </div>
+          ))}
+        </div>
+        <p class="project-tech-note">
+          <strong>{copy.technologyLabel}</strong> {copy.behire.techNote}
+        </p>
+        <a
+          class="text-link"
+          href="https://app.behire.com.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {copy.behire.link} <span class="icon icon-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </ProjectAccordion>
     </div>
   </div>
 </section>
+
+<script src="../scripts/work-showcase.js"></script>
