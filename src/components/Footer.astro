@@ -1,8 +1,8 @@
 ---
-import '../styles/footer.css';
-import { getLocalizedContent, defaultLocale, type Locale } from '../i18n/types';
 import { siteContent } from '../content/site';
 import { getLocalizedPath } from '../i18n/routes';
+import { defaultLocale, getLocalizedContent, type Locale } from '../i18n/types';
+import '../styles/footer.css';
 
 interface Props {
   page: 'home' | 'trajectory';
@@ -20,7 +20,7 @@ const homeHref = getLocalizedPath('home', locale);
     href={page === 'home' ? '#inicio' : `${homeHref}#inicio`}
     aria-label={copy.homeLinkLabel}
   >
-    <img class="brand-icon" src="/assets/true-north-icon.ico" width="20" height="22" alt="" />
+    <img class="brand-icon" src="/assets/true-north-icon.ico" width="26" height="29" alt="" />
     <span class="brand-name">
       beatriz.<em>vidal</em>
     </span>

@@ -118,7 +118,7 @@ export const homeCopy: LocalizedContent<HomeCopy> = {
         'Entre código, produtos e conversas, gosto de entender o que as pessoas precisam e encontrar caminhos para fazer acontecer. Sou afetuosa nas relações e objetiva na hora de resolver um problema.',
       affiliationsLabel: 'Atuação profissional',
       behireDescription: 'Cofundadora · desenvolvimento de produtos digitais',
-      behireLink: 'Conhecer a BeHire',
+      behireLink: 'Conhecer a Neural',
       moldsoftDescription: 'Coordenadora da vertente de inovação',
       moldsoftLink: 'Visitar a Moldsoft',
       personal:
