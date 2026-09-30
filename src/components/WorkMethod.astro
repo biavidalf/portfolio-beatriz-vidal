@@ -18,6 +18,38 @@ import '../styles/work-method.css';
       observer.observe(target);
       target.addEventListener('focusin', () => target.classList.add('is-visible'), { once: true });
     });
+
+    const track = section.querySelector<HTMLElement>('.method-track-shell');
+    const fill = track?.querySelector<HTMLElement>('.method-rail-fill');
+    const steps = track?.querySelectorAll<HTMLElement>('.method-step');
+    if (track && fill && steps) {
+      const stepObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          stepObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      section.classList.add('method-scroll-ready');
+      steps.forEach((step) => stepObserver.observe(step));
+
+      let progressFrame = 0;
+      const updateProgress = () => {
+        progressFrame = 0;
+        const rect = track.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (window.innerHeight * 0.58 - rect.top) / rect.height));
+        fill.style.height = `${progress * 100}%`;
+      };
+      const queueProgress = () => {
+        if (progressFrame) return;
+        progressFrame = window.requestAnimationFrame(updateProgress);
+      };
+      window.addEventListener('scroll', queueProgress, { passive: true });
+      window.addEventListener('resize', queueProgress);
+      updateProgress();
+    }
+  } else {
+    section?.querySelectorAll('.method-step').forEach((step) => step.classList.add('is-visible'));
   }
 </script>
 
@@ -42,11 +74,14 @@ import '../styles/work-method.css';
 
     <div class="method-process" aria-label="Meu processo de desenvolvimento">
       <p class="method-process-label eyebrow">Da conversa ao produto em uso</p>
-      <ol class="method-steps">
-        <li class="method-step"><span class="method-step-number" aria-hidden="true">01</span><div class="method-step-heading"><strong>Encontrar oportunidades e priorizar</strong><p>Junto sinais dos clientes, mercado e tecnologia aos objetivos do produto para decidir o que desenvolver agora.</p></div></li>
-        <li class="method-step"><span class="method-step-number" aria-hidden="true">02</span><div class="method-step-heading"><strong>Estruturar para construir e crescer</strong><p>Defino um caminho com escopo, especificações e decisões técnicas claras. Assim, time e IA avançam com contexto e o produto pode crescer com consistência.</p></div></li>
-        <li class="method-step"><span class="method-step-number" aria-hidden="true">03</span><div class="method-step-heading"><strong>Validar antes e depois de publicar</strong><p>Acompanho revisão técnica, testes em homologação e checagem em produção. O retorno dos clientes orienta as próximas melhorias.</p></div></li>
-      </ol>
+      <div class="method-track-shell">
+        <span class="method-rail" aria-hidden="true"><span class="method-rail-fill"></span></span>
+        <ol class="method-steps">
+          <li class="method-step"><span class="method-step-marker" aria-hidden="true"></span><span class="method-step-number" aria-hidden="true">01</span><div class="method-step-heading"><strong>Encontrar oportunidades e priorizar</strong><p>Junto sinais dos clientes, mercado e tecnologia aos objetivos do produto para decidir o que desenvolver agora.</p></div></li>
+          <li class="method-step"><span class="method-step-marker" aria-hidden="true"></span><span class="method-step-number" aria-hidden="true">02</span><div class="method-step-heading"><strong>Estruturar para construir e crescer</strong><p>Defino um caminho com escopo, especificações e decisões técnicas claras. Assim, time e IA avançam com contexto e o produto pode crescer com consistência.</p></div></li>
+          <li class="method-step"><span class="method-step-marker" aria-hidden="true"></span><span class="method-step-number" aria-hidden="true">03</span><div class="method-step-heading"><strong>Validar antes e depois de publicar</strong><p>Acompanho revisão técnica, testes em homologação e checagem em produção. O retorno dos clientes orienta as próximas melhorias.</p></div></li>
+        </ol>
+      </div>
     </div>
   </div>
   </div>

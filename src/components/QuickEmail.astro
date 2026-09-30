@@ -1,0 +1,77 @@
+---
+import '../styles/quick-email.css';
+
+const directDelivery = import.meta.env.PUBLIC_CONTACT_DIRECT_ENABLED === 'true';
+---
+
+<aside class="quick-email-card" aria-labelledby="quick-email-title">
+  <div class="quick-email-copy">
+    <p class="eyebrow quick-email-kicker">Uma mensagem para começar</p>
+    <h3 id="quick-email-title">Quer conversar? <em>Ficou fácil.</em></h3>
+    <p class="quick-email-intro">Deixe seu e-mail para eu saber onde responder. A mensagem pronta é só um ponto de partida.</p>
+  </div>
+  <form id="quick-email-form" data-direct-delivery={String(directDelivery)}>
+    <label class="quick-email-message-label" for="quick-email-message">Sua mensagem <span>edite como quiser</span></label>
+    <textarea id="quick-email-message" name="message" rows="4" required maxlength="1000" aria-describedby="quick-email-help quick-email-status">Oi, Beatriz! Conheci seu trabalho e gostaria de conversar sobre uma oportunidade, projeto ou parceria. Pode me responder neste e-mail?</textarea>
+    <label for="quick-email-address">Seu e-mail</label>
+    <div class="quick-email-fields">
+      <input id="quick-email-address" name="email" type="email" placeholder="voce@empresa.com" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="quick-email-help quick-email-status">
+      <button type="submit">Enviar e-mail <span class="icon icon-arrow-up-right" aria-hidden="true"></span></button>
+    </div>
+    <div class="quick-email-trap" aria-hidden="true"><label for="quick-email-website">Deixe este campo vazio</label><input id="quick-email-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+    <p class="quick-email-help" id="quick-email-help">{directDelivery ? 'Recebo sua mensagem e respondo no endereço informado.' : 'Seu aplicativo de e-mail abrirá com o texto que você escreveu para confirmar o envio.'}</p>
+    <p class="quick-email-status" id="quick-email-status" role="status" aria-live="polite"></p>
+  </form>
+</aside>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#quick-email-form');
+  const input = form?.querySelector<HTMLInputElement>('#quick-email-address');
+  const messageInput = form?.querySelector<HTMLTextAreaElement>('#quick-email-message');
+  const trap = form?.querySelector<HTMLInputElement>('#quick-email-website');
+  const status = form?.querySelector<HTMLElement>('#quick-email-status');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  function openEmailDraft(address: string, message: string) {
+    const body = `${message}\n\nMeu e-mail para resposta: ${address}`;
+    const subject = 'Contato pelo portfólio de Beatriz Vidal';
+    window.location.href = `mailto:beatrizvidal.dev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!input || !messageInput || !status || !submit || !form.reportValidity()) return;
+    if (trap?.value) return;
+    const email = input.value.trim();
+    const message = messageInput.value.trim();
+    if (!message) {
+      messageInput.setCustomValidity('Escreva uma mensagem.');
+      messageInput.reportValidity();
+      return;
+    }
+
+    if (form.dataset.directDelivery !== 'true') {
+      status.textContent = 'Abrindo seu aplicativo de e-mail para confirmar o envio.';
+      openEmailDraft(email, message);
+      return;
+    }
+
+    submit.disabled = true;
+    status.textContent = 'Enviando sua mensagem…';
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, message, website: trap?.value ?? '' }),
+      });
+      if (!response.ok) throw new Error('Falha no envio');
+      form.reset();
+      status.textContent = 'Mensagem enviada. Respondo pelo e-mail informado!';
+    } catch {
+      status.textContent = 'O envio direto não funcionou. Abrindo a mensagem no seu aplicativo de e-mail.';
+      openEmailDraft(email, message);
+    } finally {
+      submit.disabled = false;
+    }
+  });
+  messageInput?.addEventListener('input', () => messageInput.setCustomValidity(''));
+</script>

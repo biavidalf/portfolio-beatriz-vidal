@@ -138,3 +138,4 @@
   .trajectory-page .certification-list small{display:block;text-align:left;margin-top:0}
   .trajectory-page .footer{flex-wrap:wrap}
 }
+@media(max-width:600px){.trajectory-page .header-inner{padding-block:8px;gap:6px}}

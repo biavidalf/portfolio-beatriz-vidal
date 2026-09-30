@@ -1,6 +1,16 @@
 import Splide from '@splidejs/splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 
+const siteHeader = document.querySelector('.header');
+if (siteHeader) {
+  const updateStickyOffset = () => {
+    document.documentElement.style.setProperty('--sticky-header-height', `${Math.ceil(siteHeader.getBoundingClientRect().height)}px`);
+  };
+  updateStickyOffset();
+  if ('ResizeObserver' in window) new ResizeObserver(updateStickyOffset).observe(siteHeader);
+  else window.addEventListener('resize', updateStickyOffset);
+}
+
 const copyButton = document.querySelector('.copy-email');
 const copyStatus = document.getElementById('copy-status');
 if (copyButton && copyStatus && navigator.clipboard && window.isSecureContext) {
@@ -19,6 +29,7 @@ if (copyButton && copyStatus && navigator.clipboard && window.isSecureContext) {
 
 const workTabs = Array.from(document.querySelectorAll('.work-tab'));
 const workPanels = Array.from(document.querySelectorAll('.work-panel'));
+const workTabAnchor = document.querySelector('.work-tabs-anchor');
 
 function activateWorkTab(tab, moveFocus = false) {
   const panelId = tab.getAttribute('aria-controls');
@@ -32,6 +43,10 @@ function activateWorkTab(tab, moveFocus = false) {
     panel.hidden = panel.id !== panelId;
   });
   if (moveFocus) tab.focus();
+  window.requestAnimationFrame(() => workTabAnchor?.scrollIntoView({
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+    block: 'start',
+  }));
 }
 
 workTabs.forEach((tab, index) => {
@@ -170,11 +185,11 @@ if (!document.body.classList.contains('trajectory-page') &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const revealItems = [
     ['.projects .section-heading', 0],
-    ['.work-tabs', 100],
     ['.work-panel .featured-project', 120],
     ['.about-image', 0],
     ['.about-copy', 120],
     ['.gallery-heading', 0],
+    ['.contact-cta', 0],
     ['.contact-invitation', 0],
     ['.contact-links', 120],
   ];

@@ -580,3 +580,23 @@ html{overflow-x:clip}
 .featured-details .detail-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 38px}
 @media(max-width:800px){.featured-details{padding-inline:24px}.featured-details .detail-grid{gap:19px 24px}}
 @media(max-width:680px){.featured-details .detail-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Cartões profissionais compartilham o movimento dos canais de contato. */
+.about .about-affiliations{display:grid;gap:10px;margin-top:25px;border-top:0}
+.about .about-affiliation.contact-item{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:102px;padding:17px 20px;border:1px solid var(--rule);background:rgba(247,244,238,.5)}
+.about .about-affiliation.contact-item:hover{padding-left:20px;border-color:rgba(168,38,30,.42);background:rgba(168,38,30,.06)}
+.about .about-affiliation-copy{position:relative;z-index:1;min-width:0;transform:translateZ(22px)}
+.about .about-affiliation-copy h3{font-size:18px}
+.about .about-affiliation-destination{margin-top:7px}
+.about .about-affiliation .contact-arrow{color:var(--red);font-size:23px;transform:translateZ(22px)}
+
+/* Convite para escrever antes dos canais da seção 05. */
+.contact-cta{padding-block:70px 72px}
+@media(max-width:800px){.contact-cta{padding-block:62px}}
+@media(max-width:600px){.contact-cta{padding-block:55px}.about .about-affiliation.contact-item{min-height:96px;padding:15px 16px}.about .about-affiliation.contact-item:hover{padding-left:16px}}
+
+/* Navegação mais compacta, com folga de rolagem proporcional à altura. */
+html{scroll-padding-top:96px}
+.header-inner{min-height:82px}
+@media(max-width:800px){html{scroll-padding-top:82px}.header-inner{min-height:72px}}
+@media(max-width:600px){html{scroll-padding-top:98px}.header-inner{min-height:0;padding-block:8px;gap:6px}}
